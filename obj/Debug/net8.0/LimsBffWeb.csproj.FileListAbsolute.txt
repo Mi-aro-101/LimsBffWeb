@@ -31,3 +31,4 @@
 /home/miaro/ASA/OMNIS/LIMS/PROJECT/LimsBffWeb/obj/Debug/net8.0/LimsBffWeb.pdb
 /home/miaro/ASA/OMNIS/LIMS/PROJECT/LimsBffWeb/obj/Debug/net8.0/LimsBffWeb.genruntimeconfig.cache
 /home/miaro/ASA/OMNIS/LIMS/PROJECT/LimsBffWeb/obj/Debug/net8.0/ref/LimsBffWeb.dll
+/home/miaro/ASA/OMNIS/LIMS/PROJECT/LimsBffWeb/obj/Debug/net8.0/LimsBffWeb.sourcelink.json
