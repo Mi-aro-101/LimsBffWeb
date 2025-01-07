@@ -55,4 +55,16 @@ public class DepartementBffController : Controller
         }
         else return BadRequest("Ohatran'ny nisy olana tao a");
     }
+
+    [HttpDelete("{id}")]
+    public async Task<ActionResult> DeleteDepartement(int id)
+    {
+        string requestUri = $"{_departementServiceUrl}/{id}";
+        HttpResponseMessage response = await _httpClient.DeleteAsync(requestUri);
+        response.EnsureSuccessStatusCode();
+        
+        return await GetDepartement();
+    }
+
+
 }
