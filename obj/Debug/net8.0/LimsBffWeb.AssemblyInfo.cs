@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("LimsBffWeb")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ae6aa30a2138084012d6b68c62d30c98e6e3baab")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+5a5489a95010dedc4dff84f4de27bda533fea5b9")]
 [assembly: System.Reflection.AssemblyProductAttribute("LimsBffWeb")]
 [assembly: System.Reflection.AssemblyTitleAttribute("LimsBffWeb")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

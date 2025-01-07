@@ -66,5 +66,19 @@ public class DepartementBffController : Controller
         return await GetDepartement();
     }
 
-
+    [HttpPut("{id}")]
+    public async Task<ActionResult> CreateDepartement(int? id, DepartementDto departementDto)
+    {
+        string requestUri = $"{_departementServiceUrl}/{id}";
+        var response = await _httpClient.PutAsJsonAsync(requestUri, departementDto);
+        using var responseStream = await response.Content.ReadAsStreamAsync();
+        ApiResponse? apiResponse = await JsonSerializer.DeserializeAsync<ApiResponse>(responseStream);
+        if (apiResponse?.Data != null)
+        {
+            apiResponse.HandleResponse<DepartementDto>();
+            DepartementDto departement = (DepartementDto)apiResponse.Data;
+            return Ok(apiResponse);
+        }
+        else return BadRequest("Ohatran'ny nisy olana tao a");
+    }
 }
