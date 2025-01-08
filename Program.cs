@@ -2,6 +2,18 @@ using System.Text.Json;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: "Authorized",
+                      policy  =>
+                      {
+                          policy.WithOrigins("http://0.0.0.0:5204")
+                          .AllowAnyMethod()
+                        //   Just for this time but we need it after The token thing and Auth
+                          .AllowAnyHeader();
+                      });
+});
+
 builder.Services.AddControllers().AddJsonOptions(options =>
 {
     options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase; // Default
@@ -24,6 +36,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseCors("Authorized");
 
 app.UseHttpsRedirection();
 
