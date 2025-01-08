@@ -56,12 +56,28 @@ public class DepartementBffController : Controller
         else return BadRequest("Ohatran'ny nisy olana tao a");
     }
 
+    [HttpPut("{id}")]
+    public async Task<ActionResult> UpdateDepartement(int id, DepartementDto departementDto)
+    {
+        string requestUri = $"{_departementServiceUrl}/{id}";
+        var response = await _httpClient.PutAsJsonAsync(requestUri, departementDto);
+        using var responseStream = await response.Content.ReadAsStreamAsync();
+        ApiResponse? apiResponse = await JsonSerializer.DeserializeAsync<ApiResponse>(responseStream);
+        if (apiResponse?.Data != null)
+        {
+            apiResponse.HandleResponse<DepartementDto>();
+            DepartementDto departement = (DepartementDto)apiResponse.Data;
+            return Ok(apiResponse);
+        }
+        else return BadRequest("Ohatran'ny nisy olana tao a");
+    }
+
     [HttpDelete("{id}")]
     public async Task<ActionResult> DeleteDepartement(int id)
     {
         string requestUri = $"{_departementServiceUrl}/{id}";
         HttpResponseMessage response = await _httpClient.DeleteAsync(requestUri);
         
-        return await GetDepartement(0, 2);
+        return await GetDepartement(1, 2);
     }
 }
