@@ -1,8 +1,8 @@
 using System.Text.Json;
 using System.Text.Json.Serialization;
-using DepartementBff.Models;
+using LimsBffWeb.Models;
 
-namespace Departement.Utils;
+namespace LimsBffWeb.Utils;
 
 public class ApiResponse // Generic response wrapper
 {

@@ -2,9 +2,9 @@ using System.Linq;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using DepartementBff.Models;
+using LimsBffWeb.Models;
 using System.Linq;
-using Departement.Utils;
+using LimsBffWeb.Utils;
 using System.Text.Json;
 
 namespace LimsBffWeb.Controllers;

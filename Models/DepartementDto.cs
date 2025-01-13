@@ -1,6 +1,6 @@
 using System.Text.Json.Serialization;
 
-namespace DepartementBff.Models;
+namespace LimsBffWeb.Models;
 
 public class DepartementDto
 {
