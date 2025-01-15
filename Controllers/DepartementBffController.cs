@@ -80,4 +80,16 @@ public class DepartementBffController : Controller
         
         return await GetDepartement(1, 2);
     }
+
+    [HttpGet]
+    [Route("/api/departement/all")]
+    public async Task<ActionResult<ApiResponse>> GetAllDepartements()
+    {
+        ApiResponse? apiResponse = await _httpClient.GetFromJsonAsync<ApiResponse>(_departementServiceUrl+"/all");
+        apiResponse.HandleResponse<List<DepartementDto>>();
+        if (apiResponse == null) return NotFound();
+        
+        return Ok(apiResponse);
+    }
+
 }
