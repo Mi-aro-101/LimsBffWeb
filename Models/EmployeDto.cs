@@ -7,19 +7,19 @@ public class EmployeDto
     [JsonPropertyName("idEmploye")]
     public int IdEmploye { get; set; }
     [JsonPropertyName("matricule")]
-    public string Matricule { get; set; }
+    public string? Matricule { get; set; }
     [JsonPropertyName("nom")]
-    public string Nom { get; set; }
+    public string? Nom { get; set; }
     [JsonPropertyName("prenom")]
-    public string Prenom { get; set; }
+    public string? Prenom { get; set; }
     [JsonPropertyName("genre")]
     public int Genre { get; set; }
     [JsonPropertyName("cin")]
-    public string Cin { get; set; }
+    public string? Cin { get; set; }
     [JsonPropertyName("contact")]
-    public string Contact { get; set; }
+    public string? Contact { get; set; }
     [JsonPropertyName("adresse")]
-    public string Adresse { get; set; }
+    public string? Adresse { get; set; }
     [JsonPropertyName("manager")]
     public string? Manager { get; set; }
     [JsonPropertyName("idDepartement")]

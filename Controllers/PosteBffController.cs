@@ -81,4 +81,15 @@ public class PosteBffController : Controller
         }
         else return BadRequest("Ohatran'ny nisy olana tao a");
     }
+
+    [HttpGet]
+    [Route("/api/poste/all")]
+    public async Task<ActionResult<ApiResponse>> GetAllPostes()
+    {
+        ApiResponse? apiResponse = await _httpClient.GetFromJsonAsync<ApiResponse>(_posteServiceUrl+"/all");
+        apiResponse.HandleResponse<List<PosteDto>>();
+        if (apiResponse == null) return NotFound();
+        
+        return Ok(apiResponse);
+    }
 }
