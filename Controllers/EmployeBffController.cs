@@ -1,9 +1,5 @@
-using System.Linq;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using LimsBffWeb.Models;
-using System.Linq;
 using LimsBffWeb.Utils;
 using System.Text.Json;
 
@@ -22,10 +18,19 @@ public class EmployeBffController : Controller
     }
 
     [HttpGet]
+    [Route("/api/employe/total")]
+    public async Task<ActionResult<ApiResponse>> GetTotalEmployes()
+    {
+        ApiResponse? apiResponse = await _httpClient.GetFromJsonAsync<ApiResponse>(_employeServiceUrl+"/total");
+        if (apiResponse == null) return NotFound();
+        
+        return Ok(apiResponse);
+    }
+
+    [HttpGet]
     public async Task<ActionResult<ApiResponse>> GetEmployes(int position, int pageSize)
     {
         ApiResponse? apiResponse = await _httpClient.GetFromJsonAsync<ApiResponse>(_employeServiceUrl+$"?position={position}&pageSize={pageSize}");
-        apiResponse.HandleResponse<List<EmployeDto>>();
         if (apiResponse == null) return NotFound();
         
         return Ok(apiResponse);
@@ -36,7 +41,6 @@ public class EmployeBffController : Controller
     {
         string requestUri = $"{_employeServiceUrl}/{id}";
         ApiResponse? apiResponse = await _httpClient.GetFromJsonAsync<ApiResponse>(requestUri);
-        apiResponse.HandleResponse<EmployeDto>();
         if (apiResponse == null) return NotFound();
         
         return Ok(apiResponse);
@@ -66,8 +70,6 @@ public class EmployeBffController : Controller
         ApiResponse? apiResponse = await JsonSerializer.DeserializeAsync<ApiResponse>(responseStream);
         if (apiResponse?.Data != null)
         {
-            apiResponse.HandleResponse<EmployeDto>();
-            EmployeDto employe = (EmployeDto)apiResponse.Data;
             return Ok(apiResponse);
         }
         else return BadRequest("Ohatran'ny nisy olana tao a");
