@@ -30,4 +30,6 @@ public class EmployeDto
     public int IdPoste { get; set; }
     [JsonPropertyName("poste")]
     public PosteDto? Poste { get; set; }
+
+    public ICollection<HistoriqueEmploye> HistoriqueEmployes { get; set; }
 }
