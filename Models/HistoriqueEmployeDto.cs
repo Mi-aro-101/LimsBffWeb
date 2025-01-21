@@ -2,7 +2,7 @@ using System.Text.Json.Serialization;
 
 namespace LimsBffWeb.Models;
 
-public class HistoriqueEmploye
+public class HistoriqueEmployeDto
 {
     [JsonPropertyName("idHistoriqueEmploye")]
     public int IdHistoriqueEmploye { get; set; }
