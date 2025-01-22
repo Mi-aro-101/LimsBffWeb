@@ -16,7 +16,7 @@ public class HistoriqueEmployeDto
     [JsonPropertyName("poste")]
     public PosteDto? Poste { get; set; }
     [JsonPropertyName("idEmploye")]
-    public int IdEmploye { get; set; }
+    public int? IdEmploye { get; set; }
     [JsonPropertyName("employe")]
     [JsonIgnore]
     public EmployeDto? Employe { get; set; }
