@@ -8,9 +8,9 @@ public class HistoriqueEmployeDto
     public int IdHistoriqueEmploye { get; set; }
 
     [JsonPropertyName("dateDebut")]
-    public DateTime DateDebut { get; set; }
+    public DateOnly DateDebut { get; set; }
     [JsonPropertyName("dateFin")]
-    public DateTime? DateFin { get; set; }
+    public DateOnly? DateFin { get; set; }
     [JsonPropertyName("idPoste")]
     public int IdPoste { get; set; }
     [JsonPropertyName("poste")]

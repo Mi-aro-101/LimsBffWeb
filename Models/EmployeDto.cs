@@ -29,7 +29,30 @@ public class EmployeDto
     [JsonPropertyName("idPoste")] 
     public int IdPoste { get; set; }
     [JsonPropertyName("poste")]
-    public PosteDto? Poste { get; set; }
-
-    public ICollection<HistoriqueEmployeDto> HistoriqueEmployes { get; set; }
+    [JsonIgnore]
+    public DateOnly? _dateNouveauPoste;
+    [JsonIgnore]
+    public DateOnly? _dateFinPoste;
+    [JsonPropertyName("dateNouveauPoste")]
+    public DateOnly? DateNouveauPoste { 
+        get => _dateNouveauPoste;
+        set {
+            if(value > DateOnly.FromDateTime(DateTime.Now)){
+                throw new ArgumentException("Date de nouveau poste ne peut pas être dans le futur.");
+            }
+            if(_dateFinPoste != null){
+                if(value < _dateFinPoste.Value){
+                    throw new ArgumentException("Date de fin de poste ne peut pas être antérieure à la date de début de poste.");
+                }
+            }
+            _dateNouveauPoste = value;
+        }
+    }
+    [JsonPropertyName("dateFinAncienPoste")]
+    public DateOnly? DateFinPoste { 
+        get => _dateFinPoste;
+        set => _dateFinPoste = value;
+    }
+    [JsonPropertyName("historiqueEmployes")]
+    public ICollection<HistoriqueEmployeDto> HistoriqueEmployes = new List<HistoriqueEmployeDto>();
 }
