@@ -75,12 +75,13 @@ public class EmployeBffController : Controller
         else return BadRequest("Ohatran'ny nisy olana tao a");
     }
 
-    [HttpDelete("{id}")]
-    public async Task<ActionResult<ApiResponse>> DeleteEmploye(int id)
+    [HttpPut("delete/{id}")]
+    public async Task<ActionResult<ApiResponse>> DeleteEmploye(int id, EmployeDto employe)
     {
-        string requestUri = $"{_employeServiceUrl}/{id}";
-        HttpResponseMessage response = await _httpClient.DeleteAsync(requestUri);
+        Console.WriteLine(JsonSerializer.Serialize(employe));
+        string requestUri = $"{_employeServiceUrl}/delete/{id}";
+        var response = await _httpClient.PutAsJsonAsync(requestUri, employe);
         
-        return await GetEmployes(1, 2);
+        return NoContent();
     }
 }
