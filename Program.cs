@@ -1,4 +1,9 @@
 using System.Text.Json;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using LimsBffWeb.Utils;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,6 +26,23 @@ builder.Services.AddControllers().AddJsonOptions(options =>
     options.JsonSerializerOptions.PropertyNamingPolicy = null;
 });
 
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+})
+.AddJwtBearer(options =>
+{
+    options.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateIssuer = false, // Set to true if you want to validate the Issuer
+        ValidateAudience = false, // Set to true if you want to validate the Audience
+        ValidateLifetime = true,
+        ValidateIssuerSigningKey = true,
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("L8jR5vH1aX3kZp9QoT2yW6e4UvYmNpA7T9fKdXrPoWyQvLXs")) // Use your actual secret key
+    };
+});
+
 // Add services to the container.
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -38,6 +60,11 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseCors("Authorized");
+
+app.UseMiddleware<TokenValidationMiddleware>();
+app.UseAuthentication(); // Add this before UseAuthorization
+app.UseAuthorization();
+
 
 app.UseHttpsRedirection();
 
