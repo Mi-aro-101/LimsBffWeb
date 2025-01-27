@@ -44,6 +44,14 @@ public class PosteBffController : Controller
     [HttpPost]
     public async Task<ActionResult> CreatePoste(PosteDto posteDto)
     {
+
+        var role = HttpContext.Items["Role"]?.ToString();
+
+        if (role != "Admin")
+        {
+            return Forbid();
+        }
+
         var response = await _httpClient.PostAsJsonAsync(_posteServiceUrl, posteDto);
         using var responseStream = await response.Content.ReadAsStreamAsync();
         ApiResponse? apiResponse = await JsonSerializer.DeserializeAsync<ApiResponse>(responseStream);
