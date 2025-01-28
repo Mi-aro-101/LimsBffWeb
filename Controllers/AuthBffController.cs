@@ -14,7 +14,7 @@ public class AuthBffController : Controller
 {
     private readonly HttpClient _httpClient;
 
-    private readonly string _authServiceUrl = "http://localhost:5042/api/Auth"; // Replace with your ProductService URL
+    private readonly string _authServiceUrl = "http://localhost:5042/api/auth"; // Replace with your ProductService URL
 
     public AuthBffController(HttpClient httpClient)
     {
