@@ -75,13 +75,15 @@ public class RoleBffController : Controller
         else return BadRequest("Ohatran'ny nisy olana tao a");
     }
 
-    [HttpPut("delete/{id}")]
-    public async Task<ActionResult<ApiResponse>> DeleteRole(int id, RoleDto role)
-    {
-        Console.WriteLine(JsonSerializer.Serialize(role));
-        string requestUri = $"{_roleServiceUrl}/delete/{id}";
-        var response = await _httpClient.PutAsJsonAsync(requestUri, role);
+    //On ne doit pas supprimer un role
+
+    // [HttpPut("delete/{id}")]
+    // public async Task<ActionResult<ApiResponse>> DeleteRole(int id, RoleDto role)
+    // {
+    //     Console.WriteLine(JsonSerializer.Serialize(role));
+    //     string requestUri = $"{_roleServiceUrl}/{id}";
+    //     var response = await _httpClient.DeleteAsync(requestUri);
         
-        return NoContent();
-    }
+    //     return NoContent();
+    // }
 }
