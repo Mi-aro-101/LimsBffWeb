@@ -1,11 +1,7 @@
-using System.Linq;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using LimsBffWeb.Models;
-using System.Linq;
-using LimsBffWeb.Utils;
 using System.Text.Json;
+using LimsUtils.Api;
 
 namespace LimsBffWeb.Controllers;
 

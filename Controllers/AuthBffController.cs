@@ -1,10 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Text.Json;
-using System.Text;
-using System.Net.Http;
-
 using LimsBffWeb.Models;
-using LimsBffWeb.Utils;
+using LimsUtils.Api;
 
 namespace LimsBffWeb.Controllers;
 
