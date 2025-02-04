@@ -18,7 +18,7 @@ public class RoleBffController : Controller
     }
 
     [HttpGet]
-    [Route("/api/role/total")]
+    [Route("/api/role/all")]
     public async Task<ActionResult<ApiResponse>> GetTotalRoles()
     {
         ApiResponse? apiResponse = await _httpClient.GetFromJsonAsync<ApiResponse>(_roleServiceUrl+"/all");
