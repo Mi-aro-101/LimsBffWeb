@@ -1,11 +1,7 @@
-using System.Linq;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using LimsBffWeb.Models;
-using System.Linq;
-using LimsBffWeb.Utils;
 using System.Text.Json;
+using LimsUtils.Api;
 
 namespace LimsBffWeb.Controllers;
 [ApiController]
@@ -53,7 +49,7 @@ public class DepartementBffController : Controller
             DepartementDto departement = (DepartementDto)apiResponse.Data;
             return Ok(apiResponse);
         }
-        else return BadRequest("Ohatran'ny nisy olana tao a");
+        else return BadRequest("Etooo ohhh");
     }
 
     [HttpPut("{id}")]

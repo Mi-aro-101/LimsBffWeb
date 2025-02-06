@@ -1,11 +1,7 @@
-using System.Linq;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using LimsBffWeb.Models;
-using System.Linq;
-using LimsBffWeb.Utils;
 using System.Text.Json;
+using LimsUtils.Api;
 
 namespace LimsBffWeb.Controllers;
 [ApiController]
@@ -45,12 +41,12 @@ public class PosteBffController : Controller
     public async Task<ActionResult> CreatePoste(PosteDto posteDto)
     {
 
-        var role = HttpContext.Items["Role"]?.ToString();
+        // var role = HttpContext.Items["Role"]?.ToString();
 
-        if (role != "Admin")
-        {
-            return Forbid();
-        }
+        // if (role != "Admin")
+        // {
+        //     return Forbid();
+        // }
 
         var response = await _httpClient.PostAsJsonAsync(_posteServiceUrl, posteDto);
         using var responseStream = await response.Content.ReadAsStreamAsync();

@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using LimsBffWeb.Models;
-using LimsBffWeb.Utils;
 using System.Text.Json;
+using LimsUtils.Api;
 
 namespace LimsBffWeb.Controllers;
 [ApiController]
@@ -18,7 +18,7 @@ public class RoleBffController : Controller
     }
 
     [HttpGet]
-    [Route("/api/role/total")]
+    [Route("/api/role/all")]
     public async Task<ActionResult<ApiResponse>> GetTotalRoles()
     {
         ApiResponse? apiResponse = await _httpClient.GetFromJsonAsync<ApiResponse>(_roleServiceUrl+"/all");
