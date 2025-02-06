@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using LimsBffWeb.Models;
 using System.Text.Json;
 using LimsUtils.Api;
+using LimsFrontEnd.Utils;
 
 namespace LimsBffWeb.Controllers;
 
@@ -9,7 +10,7 @@ namespace LimsBffWeb.Controllers;
 [Route("/api/type/travaux")]
 public class TypeTravauxBffController : Controller
 {
-     private readonly HttpClient _httpClient;
+    private readonly HttpClient _httpClient;
     private readonly string _typetravauxServiceUrl = "http://localhost:5126/api/type/travaux"; // Replace with your ProductService URL
 
     public TypeTravauxBffController(HttpClient httpClient)
@@ -64,6 +65,21 @@ public class TypeTravauxBffController : Controller
         {
             apiResponse.HandleResponse<TypeTravauxDto>();
             TypeTravauxDto typeTravaux = (TypeTravauxDto)apiResponse.Data;
+            return Ok(apiResponse);
+        }
+        else return BadRequest("Ohatran'ny nisy olana tao a");
+    }
+
+    [HttpPost("tarifier/{id}")]
+    public async Task<ActionResult> Tarifier(int id, [FromBody] FormuleDto formuleDto)
+    {
+        var response = await _httpClient.PostAsJsonAsync(_typetravauxServiceUrl+$"/tarifier/{id}", formuleDto);
+        using var responseStream = await response.Content.ReadAsStreamAsync();
+        ApiResponse? apiResponse = await JsonSerializer.DeserializeAsync<ApiResponse>(responseStream);
+        if (apiResponse?.Data != null)
+        {
+            apiResponse.HandleResponse<FormuleDto>();
+            FormuleDto formule = (FormuleDto)apiResponse.Data;
             return Ok(apiResponse);
         }
         else return BadRequest("Ohatran'ny nisy olana tao a");

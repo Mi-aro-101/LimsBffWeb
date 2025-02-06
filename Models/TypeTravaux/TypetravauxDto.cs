@@ -24,5 +24,9 @@ public class TypeTravauxDto
     public DateTime? DateChangement { get; set; }
     [JsonPropertyName("historiqueTarifs")]
     public ICollection<HistoriqueTarifDto> HistoriqueTarifs { get; set; } = new List<HistoriqueTarifDto>();
+    [JsonPropertyName("haveFormule")]
+    public int HaveFormule { get; set; }
+    [JsonPropertyName("formuleString")]
+    public string? FormuleString { get; set; }
 
 }
