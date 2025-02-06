@@ -49,7 +49,7 @@ public class DepartementBffController : Controller
             DepartementDto departement = (DepartementDto)apiResponse.Data;
             return Ok(apiResponse);
         }
-        else return BadRequest("Ohatran'ny nisy olana tao a");
+        else return BadRequest("Etooo ohhh");
     }
 
     [HttpPut("{id}")]
