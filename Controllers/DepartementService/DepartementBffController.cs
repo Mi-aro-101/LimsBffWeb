@@ -9,7 +9,7 @@ namespace LimsBffWeb.Controllers;
 public class DepartementBffController : Controller
 {
     private readonly HttpClient _httpClient;
-    private readonly string _departementServiceUrl = "http://localhost:5000/api/Departement"; // Replace with your ProductService URL
+    private readonly string _departementServiceUrl = "http://localhost:5000/api/Departement";
 
 
     public DepartementBffController(HttpClient httpClient)
@@ -49,7 +49,7 @@ public class DepartementBffController : Controller
             DepartementDto departement = (DepartementDto)apiResponse.Data;
             return Ok(apiResponse);
         }
-        else return BadRequest("Etooo ohhh");
+        else return BadRequest("Data is null");
     }
 
     [HttpPut("{id}")]
