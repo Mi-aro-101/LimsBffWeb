@@ -31,4 +31,15 @@ public class RecettePrevisionnelle : Controller
         }
         else return BadRequest("Data is null");
     }
+
+    [HttpGet("{id}")]
+    public async Task<ActionResult> GetRecettePrevisionnelle(int id)
+    {
+        string requestUri = $"{_recettePrevisionnelleServiceUrl}/{id}";
+        ApiResponse? apiResponse = await _httpClient.GetFromJsonAsync<ApiResponse>(requestUri);
+        apiResponse.HandleResponse<RecettePrevisionnelleDto>();
+        if (apiResponse == null) return NotFound();
+        
+        return Ok(apiResponse);
+    }
 }
