@@ -5,25 +5,34 @@ namespace LimsBffWeb.Models
     public class DelaiDto
     {
         //attribut Etat decompte
-        [JsonPropertyName("")]
+        [JsonPropertyName("id_etat_decompte")]
         public int id_etat_decompte { get; set; }
-        [JsonPropertyName("")]
+
+        [JsonPropertyName("referenceEtatDecompte")]
         public string referenceEtatDecompte { get; set; } = string.Empty;
-        [JsonPropertyName("")]
-        public string date_etat_decompte { get; set; } = string.Empty;
+
+        [JsonPropertyName("date_etat_decompte")]
+        public DateTime date_etat_decompte { get; set; }
 
         //attribut paiement
-        [JsonPropertyName("")]
+        [JsonPropertyName("idPaiement")]
         public int idPaiement { get; set; }
-        [JsonPropertyName("")]
+
+        [JsonPropertyName("datePaiement")]
         public DateTime? datePaiement { get; set; }
-        [JsonPropertyName("")]
+
+        [JsonPropertyName("etatPaiement")]
         public int EtatPaiement { get; set; }
 
         //attribut delai
-        [JsonPropertyName("")]
+        [JsonPropertyName("dateFinDelai")]
         public DateTime DateFinDelai { get; set; }
-        [JsonPropertyName("")]
+
+        [JsonPropertyName("modePaiement")]
         public int modePaiement { get; set; }
+
+        // attribut supplementaire
+        [JsonPropertyName("nombreEchantillon")]
+        public int nombreEchantillon { get; set; }
     }
 }

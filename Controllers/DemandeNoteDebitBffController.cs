@@ -1,5 +1,5 @@
 ﻿using LimsBffWeb.Models;
-using LimsBffWeb.Utils;
+using LimsUtils.Api;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Text.Json;
@@ -7,7 +7,7 @@ using System.Text.Json;
 namespace LimsBffWeb.Controllers
 {
     [ApiController]
-    [Route("/api/notedebit")]
+    [Route("api/notedebit")]
     public class DemandeNoteDebitBffController : ControllerBase
     {
         private readonly HttpClient _httpClient;
@@ -42,13 +42,23 @@ namespace LimsBffWeb.Controllers
             return Ok(apiResponse);
         }*/
 
-        [HttpGet]
+        [HttpGet("Demande_A_Faire")]
         public async Task<ActionResult> GetNoteDebit()
         {
-            ApiResponse? apiResponse = await _httpClient.GetFromJsonAsync<ApiResponse>(_demandeNoteDebitURL);
+            ApiResponse? apiResponse = await _httpClient.GetFromJsonAsync<ApiResponse>(_demandeNoteDebitURL+ "/NoteDoitfaire");
             apiResponse.HandleResponse<List<DemandeDto>>();
             if (apiResponse == null) return NotFound();
             return Ok(apiResponse);
+        }
+
+        [HttpGet("{id_etat_decompte}")]
+        public async Task<ActionResult> GetInfoDemande(int id_etat_decompte)
+        {
+            string requestUri = $"{_demandeNoteDebitURL}/{id_etat_decompte}";
+            ApiResponse? apiresponse = await _httpClient.GetFromJsonAsync<ApiResponse>(requestUri);
+            apiresponse.HandleResponse<List<DemandeDto>>();
+            if (apiresponse == null) return NotFound();
+            return Ok(apiresponse);
         }
 
         [HttpGet("AllListe")]
@@ -57,6 +67,15 @@ namespace LimsBffWeb.Controllers
             ApiResponse? apiResponse = await _httpClient.GetFromJsonAsync<ApiResponse>(_demandeNoteDebitURL+"/Liste");
             apiResponse.HandleResponse<List<DemandeDto>>();
             if( apiResponse == null ) return NotFound();
+            return Ok(apiResponse);
+        }
+
+        [HttpGet("DemandeOublie")]
+        public async Task<ActionResult> GetVerificationDemandeOublie()
+        {
+            ApiResponse? apiResponse = await _httpClient.GetFromJsonAsync<ApiResponse>(_demandeNoteDebitURL + "/Verification");
+            apiResponse.HandleResponse<List<DemandeDto>>();
+            if (apiResponse == null) return NotFound();
             return Ok(apiResponse);
         }
     }

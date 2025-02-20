@@ -55,17 +55,15 @@ namespace LimsBffWeb.Models
         public string? montant_literal { get; set; }
 
         // Attributs Etat_decompte utile pour liste
-	[JsonPropertyName("id_etat_decompte")]
-	public int? id_etat_decompte { get; set; }
         [JsonPropertyName("referenceEtatDecompte")]
         public string? referenceEtatDecompte { get; set; }
-        [JsonPropertyName("dateEtatDecompte")]
+        [JsonPropertyName("date_etat_decompte")]
         public string? dateEtatDecompte { get; set; }
 
         // Attributs communs
         [JsonPropertyName("montant")]
         public double montant { get; set; }
-        [JsonPropertyName("idEtatDecompte")]
+        [JsonPropertyName("id_etat_decompte")]
         public int idEtatDecompte { get; set; }
 
     }

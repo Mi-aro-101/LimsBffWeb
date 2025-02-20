@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using LimsBffWeb.Utils;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using System.Text.Json.Serialization;
 
 //TODO: Change de branche
 var builder = WebApplication.CreateBuilder(args);
@@ -12,7 +13,8 @@ builder.Services.AddCors(options =>
     options.AddPolicy(name: "Authorized",
                       policy  =>
                       {
-                          policy.WithOrigins("http://0.0.0.0:5204")
+                          //policy.WithOrigins("http://0.0.0.0:5204")
+                          policy.AllowAnyOrigin()
                           .AllowAnyMethod()
                         //   Just for this time but we need it after The token thing and Auth
                           .AllowAnyHeader();
@@ -24,6 +26,7 @@ builder.Services.AddControllers().AddJsonOptions(options =>
     options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase; // Default
     // To use PascalCase
     options.JsonSerializerOptions.PropertyNamingPolicy = null;
+    options.JsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
 });
 
 builder.Services.AddAuthentication(options =>
