@@ -9,5 +9,5 @@ public class AvanceeTravailDto
     [JsonPropertyName("niveau")]
     public int Niveau { get; set; }    
     [JsonPropertyName("designation")]
-    public string Designation { get; set; }
+    public string? Designation { get; set; }
 }
