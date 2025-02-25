@@ -16,6 +16,7 @@ public class AuthBffController : Controller
     public AuthBffController(HttpClient httpClient)
     {
         _httpClient = httpClient;
+        
     }
 
     [HttpPost("login")]
