@@ -9,7 +9,7 @@ namespace LimsBffWeb.Controllers;
 public class TypeEchantillonBffController : Controller
 {
     private readonly HttpClient _httpClient;
-    private readonly string _typeEchantillonServiceUrl = "http://localhost:5013/api/type/echantillon"; // Replace with your PrestationService URL
+    private readonly string _typeEchantillonServiceUrl = "http://localhost:5126/api/type/echantillon"; // Replace with your PrestationService URL
 
 
     public TypeEchantillonBffController(HttpClient httpClient)
