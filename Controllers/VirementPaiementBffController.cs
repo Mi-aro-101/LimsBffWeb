@@ -19,7 +19,7 @@ namespace LimsBffWeb.Controllers
         }
 
         [HttpGet("{id_etat_decompte}")]
-        public async Task<IActionResult> GetVirementPaiement(int id_etat_decompte)
+        public async Task<ActionResult> GetVirementPaiement(int id_etat_decompte)
         {
             ApiResponse? apiresponse = await _httpClient.GetFromJsonAsync<ApiResponse>($"{_virementURL}/{id_etat_decompte}");
             apiresponse.HandleResponse<List<PaiementDto>>();
@@ -28,7 +28,7 @@ namespace LimsBffWeb.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddPaiementParVirement([FromBody] PaiementDto paiement)
+        public async Task<ActionResult> AddPaiementParVirement([FromBody] PaiementDto paiement)
         {
             var response = await _httpClient.PostAsJsonAsync(_virementURL, paiement);
             using var responseStream = await response.Content.ReadAsStreamAsync();

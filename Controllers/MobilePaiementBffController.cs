@@ -19,7 +19,7 @@ namespace LimsBffWeb.Controllers
         }
 
         [HttpGet("{id_etat_decompte}")]
-        public async Task<IActionResult> GetMobilePaiement(int id_etat_decompte)
+        public async Task<ActionResult> GetMobilePaiement(int id_etat_decompte)
         {
             ApiResponse? apiresponse = await _httpClient.GetFromJsonAsync<ApiResponse>($"{_mobileURL}/{id_etat_decompte}");
             apiresponse.HandleResponse<List<PaiementDto>>();
@@ -28,10 +28,15 @@ namespace LimsBffWeb.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddPaiementParMobile([FromBody] PaiementDto paiement)
+        public async Task<ActionResult> AddPaiementParMobile(PaiementDto paiement)
         {
             var response = await _httpClient.PostAsJsonAsync(_mobileURL, paiement);
             using var responseStream = await response.Content.ReadAsStreamAsync();
+            Console.WriteLine(await response.Content.ReadAsStringAsync());
+            //Console.WriteLine(JsonSerializer.Serialize(paiement));
+            string jsonString = await response.Content.ReadAsStringAsync();
+            Console.WriteLine("JSON reçu : " + jsonString);
+
             ApiResponse? apiResponse = await JsonSerializer.DeserializeAsync<ApiResponse>(responseStream);
             if (apiResponse?.Data != null)
             {

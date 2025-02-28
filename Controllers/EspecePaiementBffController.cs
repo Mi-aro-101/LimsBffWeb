@@ -19,7 +19,7 @@ namespace LimsBffWeb.Controllers
         }
 
         [HttpGet("{id_etat_decompte}")]
-        public async Task<IActionResult> GetEspecePaiement(int id_etat_decompte)
+        public async Task<ActionResult> GetEspecePaiement(int id_etat_decompte)
         {
             string request = $"{_especeURL}/{id_etat_decompte}";
 
@@ -36,7 +36,7 @@ namespace LimsBffWeb.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddPaiementEnEspece([FromBody] PaiementDto paiement)
+        public async Task<ActionResult> AddPaiementEnEspece([FromBody] PaiementDto paiement)
         {
             var response = await _httpClient.PostAsJsonAsync(_especeURL, paiement);
             using var responseStream = await response.Content.ReadAsStreamAsync();
