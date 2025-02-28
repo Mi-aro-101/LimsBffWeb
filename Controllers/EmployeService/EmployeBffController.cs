@@ -22,7 +22,10 @@ public class EmployeBffController : Controller
     public async Task<ActionResult<ApiResponse>> GetTotalEmployes()
     {
         ApiResponse? apiResponse = await _httpClient.GetFromJsonAsync<ApiResponse>(_employeServiceUrl+"/total");
-        if (apiResponse == null) return NotFound();
+        if (apiResponse?.IsSuccess == false || apiResponse == null)
+        {
+            return BadRequest("Une erreur s'est produite lors de la récupération des données : Employes");
+        }
         
         return Ok(apiResponse);
     }
@@ -31,7 +34,10 @@ public class EmployeBffController : Controller
     public async Task<ActionResult<ApiResponse>> GetEmployes(int position, int pageSize)
     {
         ApiResponse? apiResponse = await _httpClient.GetFromJsonAsync<ApiResponse>(_employeServiceUrl+$"?position={position}&pageSize={pageSize}");
-        if (apiResponse == null) return NotFound();
+        if (apiResponse?.IsSuccess == false || apiResponse == null)
+        {
+            return BadRequest("Une erreur s'est produite lors de la récupération des données : Employes");
+        }
         
         return Ok(apiResponse);
     }
@@ -41,7 +47,10 @@ public class EmployeBffController : Controller
     {
         string requestUri = $"{_employeServiceUrl}/{id}";
         ApiResponse? apiResponse = await _httpClient.GetFromJsonAsync<ApiResponse>(requestUri);
-        if (apiResponse == null) return NotFound();
+        if (apiResponse?.IsSuccess == false || apiResponse == null)
+        {
+            return BadRequest($"Une erreur s'est produite lors de la récupération des données : Employes {id}");
+        }
         
         return Ok(apiResponse);
     }
@@ -52,6 +61,10 @@ public class EmployeBffController : Controller
         var response = await _httpClient.PostAsJsonAsync(_employeServiceUrl, employeDto);
         using var responseStream = await response.Content.ReadAsStreamAsync();
         ApiResponse? apiResponse = await JsonSerializer.DeserializeAsync<ApiResponse>(responseStream);
+        if (apiResponse?.IsSuccess == false || apiResponse == null)
+        {
+            return BadRequest($"Une erreur s'est produite lors de la créatin de l'employé : {employeDto.Nom}");
+        }
         if (apiResponse?.Data != null)
         {
             apiResponse.HandleResponse<EmployeDto>();
@@ -68,7 +81,11 @@ public class EmployeBffController : Controller
         var response = await _httpClient.PutAsJsonAsync(requestUri, employeDto);
         using var responseStream = await response.Content.ReadAsStreamAsync();
         ApiResponse? apiResponse = await JsonSerializer.DeserializeAsync<ApiResponse>(responseStream);
-        if (apiResponse?.Data != null)
+        if (apiResponse?.IsSuccess == false || apiResponse == null)
+        {
+            return BadRequest("Une erreur s'est produite lors de la mis à jour des données : Employes");
+        }
+        else if (apiResponse?.Data != null)
         {
             return Ok(apiResponse);
         }

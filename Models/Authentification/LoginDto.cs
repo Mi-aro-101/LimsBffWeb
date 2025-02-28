@@ -4,7 +4,7 @@ namespace LimsBffWeb.Models;
 public class LoginDto
 {
     [JsonPropertyName("identifiant")]
-    public string Identifiant { get; set; }
+    public required string Identifiant { get; set; }
     [JsonPropertyName("password")]
-    public string Password { get; set; }
+    public required string Password { get; set; }
 }

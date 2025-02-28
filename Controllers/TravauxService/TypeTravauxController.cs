@@ -22,6 +22,10 @@ public class TypeTravauxBffController : Controller
     public async Task<ActionResult> GetTypeTravauxFrom(int position, int pageSize)
     {
         ApiResponse? apiResponse = await _httpClient.GetFromJsonAsync<ApiResponse>(_typetravauxServiceUrl+$"?position={position}&pageSize={pageSize}");
+        if (apiResponse?.IsSuccess == false || apiResponse == null)
+        {
+            return BadRequest("Une erreur s'est produite lors de la récupération des données : Type Travaux");
+        }
         apiResponse.HandleResponse<List<TypeTravauxDto>>();
         if (apiResponse == null) return NotFound();
         
@@ -33,8 +37,11 @@ public class TypeTravauxBffController : Controller
     {
         string requestUri = $"{_typetravauxServiceUrl}/{id}";
         ApiResponse? apiResponse = await _httpClient.GetFromJsonAsync<ApiResponse>(requestUri);
+        if (apiResponse?.IsSuccess == false || apiResponse == null)
+        {
+            return BadRequest($"Une erreur s'est produite lors de la récupération de donnée : Travaux {id}");
+        }
         apiResponse.HandleResponse<TypeTravauxDto>();
-        if (apiResponse == null) return NotFound();
         
         return Ok(apiResponse);
     }
@@ -45,13 +52,16 @@ public class TypeTravauxBffController : Controller
         var response = await _httpClient.PostAsJsonAsync(_typetravauxServiceUrl, typeTravaux);
         using var responseStream = await response.Content.ReadAsStreamAsync();
         ApiResponse? apiResponse = await JsonSerializer.DeserializeAsync<ApiResponse>(responseStream);
-        if (apiResponse?.Data != null)
+        if (apiResponse?.IsSuccess == false || apiResponse == null)
+        {
+            return BadRequest($"Une erreur s'est produite lors de la création des données : Type travaux {typeTravaux.Designation}");
+        }
+        else if (apiResponse?.Data != null)
         {
             apiResponse.HandleResponse<TypeTravauxDto>();
             TypeTravauxDto typeTravauxDto = (TypeTravauxDto)apiResponse.Data;
-            return Ok(apiResponse);
         }
-        else return BadRequest("Ohatran'ny nisy olana tao a");
+        return Ok(apiResponse);
     }
 
     [HttpPut("{id}")]
@@ -61,13 +71,16 @@ public class TypeTravauxBffController : Controller
         var response = await _httpClient.PutAsJsonAsync(requestUri, typeTravauxDto);
         using var responseStream = await response.Content.ReadAsStreamAsync();
         ApiResponse? apiResponse = await JsonSerializer.DeserializeAsync<ApiResponse>(responseStream);
-        if (apiResponse?.Data != null)
+        if (apiResponse?.IsSuccess == false || apiResponse == null)
+        {
+            return BadRequest($"Une erreur s'est produite lors de la mis à jour de donnée : Type Travaux {typeTravauxDto.Designation}");
+        }
+        else if (apiResponse?.Data != null)
         {
             apiResponse.HandleResponse<TypeTravauxDto>();
             TypeTravauxDto typeTravaux = (TypeTravauxDto)apiResponse.Data;
-            return Ok(apiResponse);
         }
-        else return BadRequest("Ohatran'ny nisy olana tao a");
+        return Ok(apiResponse);
     }
 
     [HttpPost("tarifier/{id}")]
@@ -76,12 +89,15 @@ public class TypeTravauxBffController : Controller
         var response = await _httpClient.PostAsJsonAsync(_typetravauxServiceUrl+$"/tarifier/{id}", formuleDto);
         using var responseStream = await response.Content.ReadAsStreamAsync();
         ApiResponse? apiResponse = await JsonSerializer.DeserializeAsync<ApiResponse>(responseStream);
-        if (apiResponse?.Data != null)
+        if (apiResponse?.IsSuccess == false || apiResponse == null)
+        {
+            return BadRequest("Une erreur s'est produite lors du calcul de tarification");
+        }
+        else if (apiResponse?.Data != null)
         {
             apiResponse.HandleResponse<FormuleDto>();
             FormuleDto formule = (FormuleDto)apiResponse.Data;
-            return Ok(apiResponse);
         }
-        else return BadRequest("Ohatran'ny nisy olana tao a");
+        return Ok(apiResponse);
     }
 }

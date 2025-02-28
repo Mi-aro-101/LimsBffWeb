@@ -9,7 +9,7 @@ namespace LimsBffWeb.Controllers;
 public class TypeEchantillonBffController : Controller
 {
     private readonly HttpClient _httpClient;
-    private readonly string _typeEchantillonServiceUrl = "http://localhost:5013/api/type/echantillon"; // Replace with your PrestationService URL
+    private readonly string _typeEchantillonServiceUrl = "http://localhost:5126/api/type/echantillon"; // Replace with your PrestationService URL
 
 
     public TypeEchantillonBffController(HttpClient httpClient)
@@ -22,8 +22,10 @@ public class TypeEchantillonBffController : Controller
     public async Task<ActionResult<ApiResponse>> GetTotalTypeEchantillons()
     {
         ApiResponse? apiResponse = await _httpClient.GetFromJsonAsync<ApiResponse>(_typeEchantillonServiceUrl+"/all");
-        if (apiResponse == null) return NotFound();
-        
+        if (apiResponse?.IsSuccess == false || apiResponse == null)
+        {
+            return BadRequest("Une erreur s'est produite lors de la récupération des données : Type echantillons");
+        }
         return Ok(apiResponse);
     }
 
@@ -31,8 +33,10 @@ public class TypeEchantillonBffController : Controller
     public async Task<ActionResult<ApiResponse>> GetTypeEchantillons(int position, int pageSize)
     {
         ApiResponse? apiResponse = await _httpClient.GetFromJsonAsync<ApiResponse>(_typeEchantillonServiceUrl+$"?position={position}&pageSize={pageSize}");
-        if (apiResponse == null) return NotFound();
-        
+        if (apiResponse?.IsSuccess == false || apiResponse == null)
+        {
+            return BadRequest("Une erreur s'est produite lors de la récupération des données : Type echantillons");
+        }
         return Ok(apiResponse);
     }
 
@@ -41,8 +45,10 @@ public class TypeEchantillonBffController : Controller
     {
         string requestUri = $"{_typeEchantillonServiceUrl}/{id}";
         ApiResponse? apiResponse = await _httpClient.GetFromJsonAsync<ApiResponse>(requestUri);
-        if (apiResponse == null) return NotFound();
-        
+        if (apiResponse?.IsSuccess == false || apiResponse == null)
+        {
+            return BadRequest($"Une erreur s'est produite lors de la récupération de donnée : Type echantillon {id}");
+        }
         return Ok(apiResponse);
     }
 
@@ -52,7 +58,11 @@ public class TypeEchantillonBffController : Controller
         var response = await _httpClient.PostAsJsonAsync(_typeEchantillonServiceUrl, typeEchantillonDto);
         using var responseStream = await response.Content.ReadAsStreamAsync();
         ApiResponse? apiResponse = await JsonSerializer.DeserializeAsync<ApiResponse>(responseStream);
-        if (apiResponse?.Data != null)
+        if (apiResponse?.IsSuccess == false || apiResponse == null)
+        {
+            return BadRequest($"Une erreur s'est produite lors de la création de type echnatillon {typeEchantillonDto.Designation}");
+        }
+        else if (apiResponse?.Data != null)
         {
             apiResponse.HandleResponse<TypeEchantillonDto>();
             TypeEchantillonDto typeEchantillon = (TypeEchantillonDto)apiResponse.Data;
@@ -68,11 +78,11 @@ public class TypeEchantillonBffController : Controller
         var response = await _httpClient.PutAsJsonAsync(requestUri, typeEchantillonDto);
         using var responseStream = await response.Content.ReadAsStreamAsync();
         ApiResponse? apiResponse = await JsonSerializer.DeserializeAsync<ApiResponse>(responseStream);
-        if (apiResponse?.Data != null)
+        if (apiResponse?.IsSuccess == false || apiResponse == null)
         {
-            return Ok(apiResponse);
+            return BadRequest($"Une erreur s'est produite lors de la mis à jour des données : Type echantillon {typeEchantillonDto.Designation}");
         }
-        else return BadRequest(apiResponse);
+        return Ok(apiResponse);
     }
 
     //On ne doit pas supprimer un typeEchantillon

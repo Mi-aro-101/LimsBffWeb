@@ -7,9 +7,9 @@ public class TypeTravauxDto
     [JsonPropertyName("idTypeTravaux")]
     public int IdTypeTravaux { get; set; }
     [JsonPropertyName("code")]
-    public string Code { get; set; }
+    public required string Code { get; set; }
     [JsonPropertyName("designation")]
-    public string Designation { get; set; }
+    public required string Designation { get; set; }
     [JsonPropertyName("hasResultat")]
     public int HasResultat { get; set; }
     [JsonPropertyName("idDepartement")]

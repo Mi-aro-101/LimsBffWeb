@@ -21,7 +21,10 @@ public class AvanceeTravailController : Controller
     public async Task<ActionResult> GetAvanceeTravaux()
     {
         ApiResponse? apiResponse = await _httpClient.GetFromJsonAsync<ApiResponse>(_avanceeTravailServiceUrl);
-        if (apiResponse == null) return NotFound();
+        if (apiResponse?.IsSuccess == false || apiResponse == null)
+        {
+            return BadRequest("Une erreur s'est produite lors de la récupération des données : Avancee travaux");
+        }
         apiResponse.HandleResponse<List<AvanceeTravailDto>>();
         
         return Ok(apiResponse);
@@ -32,7 +35,10 @@ public class AvanceeTravailController : Controller
     {
         string requestUri = $"{_avanceeTravailServiceUrl}/{id}";
         ApiResponse? apiResponse = await _httpClient.GetFromJsonAsync<ApiResponse>(requestUri);
-        if (apiResponse == null) return NotFound("Service non actif pour le moment");
+        if (apiResponse?.IsSuccess == false || apiResponse == null)
+        {
+            return BadRequest($"Une erreur s'est produite lors de la récupération de donnée : Avancee travail {id}");
+        }
         apiResponse.HandleResponse<AvanceeTravailDto>();
         
         return Ok(apiResponse);
@@ -44,7 +50,11 @@ public class AvanceeTravailController : Controller
         var response = await _httpClient.PostAsJsonAsync(_avanceeTravailServiceUrl, avanceeTravail);
         using var responseStream = await response.Content.ReadAsStreamAsync();
         ApiResponse? apiResponse = await JsonSerializer.DeserializeAsync<ApiResponse>(responseStream);
-        if (apiResponse?.Data!= null)
+        if (apiResponse?.IsSuccess == false || apiResponse == null)
+        {
+            return BadRequest($"Une erreur s'est produite lors de la création de donnée : Clients {avanceeTravail.Designation}");
+        }
+        else if (apiResponse?.Data!= null)
         {
             apiResponse.HandleResponse<AvanceeTravailDto>();
             AvanceeTravailDto avanceeTravailDto = (AvanceeTravailDto)apiResponse.Data;

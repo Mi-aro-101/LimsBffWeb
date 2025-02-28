@@ -21,7 +21,10 @@ public class EtatPrestationController : Controller
     public async Task<ActionResult<ApiResponse>> GetEtatsPrestation()
     {
         ApiResponse? apiResponse = await _httpClient.GetFromJsonAsync<ApiResponse>(_clientServiceUrl);
-        if(apiResponse == null) return NotFound();
+        if (apiResponse?.IsSuccess == false || apiResponse == null)
+        {
+            return BadRequest("Une erreur s'est produite lors de la récupération des données : Etat prestations");
+        }
         return Ok(apiResponse);
     }
 
@@ -30,7 +33,10 @@ public class EtatPrestationController : Controller
     {
         string requestUri = $"{_clientServiceUrl}/{id}";
         ApiResponse? apiResponse = await _httpClient.GetFromJsonAsync<ApiResponse>(requestUri);
-        if(apiResponse == null) return NotFound();
+        if (apiResponse?.IsSuccess == false || apiResponse == null)
+        {
+            return BadRequest($"Une erreur s'est produite lors de la récupération de donnée : Etat prestation {id}");
+        }
         return Ok(apiResponse);
     }
 
@@ -43,6 +49,10 @@ public class EtatPrestationController : Controller
         if (apiResponse?.IsSuccess == true)
         {
             apiResponse.HandleResponse<EtatPrestationDto>();
+            if(apiResponse.Data == null)
+            {
+                return BadRequest("Une erreur s'est produite lors de la création de l'état prestation");
+            }
             EtatPrestationDto etatPrestation = (EtatPrestationDto)apiResponse.Data;
             return Ok(apiResponse);
         }

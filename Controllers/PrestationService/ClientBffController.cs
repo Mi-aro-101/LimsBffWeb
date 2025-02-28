@@ -20,7 +20,10 @@ public class ClientBffController : Controller
     public async Task<ActionResult<ApiResponse>> GetClients()
     {
         ApiResponse? apiResponse = await _httpClient.GetFromJsonAsync<ApiResponse>(_clientServiceUrl);
-        if(apiResponse == null) return NotFound();
+        if (apiResponse?.IsSuccess == false || apiResponse == null)
+        {
+            return BadRequest("Une erreur s'est produite lors de la récupération des données : Clients");
+        }
         return Ok(apiResponse);
     }
 
@@ -33,10 +36,14 @@ public class ClientBffController : Controller
         if (apiResponse?.IsSuccess == true)
         {
             apiResponse.HandleResponse<ClientDto>();
+            if(apiResponse.Data == null)
+            {
+                return BadRequest("Une erreur s'est produite");
+            }
             ClientDto client = (ClientDto)apiResponse.Data;
             return Ok(apiResponse);
         }
-        else return BadRequest(apiResponse);
+        else return BadRequest($"Une erreur s'est produite lors de la création de l'employé {clientDto.Nom}");
     }
 
     [HttpPut("{id}")]
@@ -46,7 +53,11 @@ public class ClientBffController : Controller
         var response = await _httpClient.PutAsJsonAsync(requestUri, clientDto);
         using var responseStream = await response.Content.ReadAsStreamAsync();
         ApiResponse? apiResponse = await JsonSerializer.DeserializeAsync<ApiResponse>(responseStream);
-        if (apiResponse?.Data != null)
+        if (apiResponse?.IsSuccess == false || apiResponse == null)
+        {
+            return BadRequest($"Une erreur s'est produite lors de la mis à jour de donnée : Client {clientDto.Nom}");
+        }
+        else if (apiResponse?.Data != null)
         {
             return Ok(apiResponse);
         }
@@ -58,7 +69,10 @@ public class ClientBffController : Controller
     {
         string requestUri = $"{_clientServiceUrl}/{id}";
         ApiResponse? apiResponse = await _httpClient.GetFromJsonAsync<ApiResponse>(requestUri);
-        if(apiResponse == null) return NotFound();
+        if (apiResponse?.IsSuccess == false || apiResponse == null)
+        {
+            return BadRequest($"Une erreur s'est produite lors de la récupération de donnée du Client {id}");
+        }
         return Ok(apiResponse);
     }
 }

@@ -11,5 +11,5 @@ public class FormuleDto
     [JsonPropertyName("formuleString")]
     public string? formuleString { get; set; }
     [JsonPropertyName("formuleChosed")]
-    public string FormuleChosed { get; set; }
+    public string? FormuleChosed { get; set; }
 }

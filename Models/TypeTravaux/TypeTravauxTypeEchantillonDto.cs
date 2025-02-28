@@ -8,10 +8,10 @@ public class TypeTravauxTypeEchantillonDto
     public int IdTypeTravaux { get; set; }
 
     [JsonIgnore]
-    public TypeTravauxDto TypeTravaux { get; set; } 
+    public TypeTravauxDto? TypeTravaux { get; set; } 
 
     [JsonPropertyName("idTypeEchantillon")]
     public int IdTypeEchantillon { get; set; }
     [JsonPropertyName("typeEchantillon")]
-    public TypeEchantillonDto TypeEchantillon { get; set; }
+    public TypeEchantillonDto? TypeEchantillon { get; set; }
 }
