@@ -9,5 +9,5 @@ public class EtatPrestationDto
     [JsonPropertyName("niveau")]
     public int Niveau { get; set; }
     [JsonPropertyName("designation")]
-    public string Designation { get; set; }
+    public required string Designation { get; set; }
 }

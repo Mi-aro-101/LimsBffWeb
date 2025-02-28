@@ -20,8 +20,11 @@ public class PosteBffController : Controller
     public async Task<ActionResult> GetPoste(int position, int pageSize)
     {
         ApiResponse? apiResponse = await _httpClient.GetFromJsonAsync<ApiResponse>(_posteServiceUrl+$"?position={position}&pageSize={pageSize}");
+        if (apiResponse?.IsSuccess == false || apiResponse == null)
+        {
+            return BadRequest("Une erreur s'est produite lors de la récupération des données : Poste");
+        }
         apiResponse.HandleResponse<List<PosteDto>>();
-        if (apiResponse == null) return NotFound();
         
         return Ok(apiResponse);
     }
@@ -31,8 +34,11 @@ public class PosteBffController : Controller
     {
         string requestUri = $"{_posteServiceUrl}/{id}";
         ApiResponse? apiResponse = await _httpClient.GetFromJsonAsync<ApiResponse>(requestUri);
+        if (apiResponse?.IsSuccess == false || apiResponse == null)
+        {
+            return BadRequest("Une erreur s'est produite lors de la récupération des données : Employes");
+        }
         apiResponse.HandleResponse<PosteDto>();
-        if (apiResponse == null) return NotFound();
         
         return Ok(apiResponse);
     }
@@ -51,7 +57,11 @@ public class PosteBffController : Controller
         var response = await _httpClient.PostAsJsonAsync(_posteServiceUrl, posteDto);
         using var responseStream = await response.Content.ReadAsStreamAsync();
         ApiResponse? apiResponse = await JsonSerializer.DeserializeAsync<ApiResponse>(responseStream);
-        if (apiResponse?.Data != null)
+        if (apiResponse?.IsSuccess == false || apiResponse == null)
+        {
+            return BadRequest("Une erreur s'est produite lors de la récupération des données : Employes");
+        }
+        else if (apiResponse?.Data != null)
         {
             apiResponse.HandleResponse<PosteDto>();
             PosteDto poste = (PosteDto)apiResponse.Data;
@@ -77,7 +87,11 @@ public class PosteBffController : Controller
         var response = await _httpClient.PutAsJsonAsync(requestUri, posteDto);
         using var responseStream = await response.Content.ReadAsStreamAsync();
         ApiResponse? apiResponse = await JsonSerializer.DeserializeAsync<ApiResponse>(responseStream);
-        if (apiResponse?.Data != null)
+        if (apiResponse?.IsSuccess == false || apiResponse == null)
+        {
+            return BadRequest("Une erreur s'est produite lors de la mis à jour des données : Employes");
+        }
+        else if (apiResponse?.Data != null)
         {
             apiResponse.HandleResponse<PosteDto>();
             PosteDto poste = (PosteDto)apiResponse.Data;
@@ -91,8 +105,11 @@ public class PosteBffController : Controller
     public async Task<ActionResult<ApiResponse>> GetAllPostes()
     {
         ApiResponse? apiResponse = await _httpClient.GetFromJsonAsync<ApiResponse>(_posteServiceUrl+"/all");
+        if (apiResponse?.IsSuccess == false || apiResponse == null)
+        {
+            return BadRequest("Une erreur s'est produite lors de la récupération des données : Postes");
+        }
         apiResponse.HandleResponse<List<PosteDto>>();
-        if (apiResponse == null) return NotFound();
         
         return Ok(apiResponse);
     }

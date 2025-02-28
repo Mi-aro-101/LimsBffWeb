@@ -7,5 +7,5 @@ public class TypeEchantillonDto
     public int IdTypeEchantillon { get; set; }
 
     [JsonPropertyName("designation")]
-    public string Designation { get; set; }
+    public required string Designation { get; set; }
 }

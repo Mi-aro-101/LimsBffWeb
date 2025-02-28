@@ -23,7 +23,11 @@ public class RecettePrevisionnelle : Controller
         var response = await _httpClient.PostAsJsonAsync(_recettePrevisionnelleServiceUrl, recettePrevisionnelle);
         using var responseStream = await response.Content.ReadAsStreamAsync();
         ApiResponse? apiResponse = await JsonSerializer.DeserializeAsync<ApiResponse>(responseStream);
-        if (apiResponse?.Data != null)
+        if(apiResponse?.IsSuccess == false)
+        {
+            return BadRequest("Une erreur s'est produite lors de la création de la recette prévisionnelle");
+        }
+        else if (apiResponse?.Data != null)
         {
             apiResponse.HandleResponse<RecettePrevisionnelleDto>();
             RecettePrevisionnelleDto recettePrevisionnelleDto = (RecettePrevisionnelleDto)apiResponse.Data;
@@ -37,8 +41,11 @@ public class RecettePrevisionnelle : Controller
     {
         string requestUri = $"{_recettePrevisionnelleServiceUrl}/{id}";
         ApiResponse? apiResponse = await _httpClient.GetFromJsonAsync<ApiResponse>(requestUri);
+        if (apiResponse?.IsSuccess == false || apiResponse == null)
+        {
+            return BadRequest("Une erreur s'est produite lors de la récupération des données : Recettes previsionnelles");
+        }
         apiResponse.HandleResponse<RecettePrevisionnelleDto>();
-        if (apiResponse == null) return NotFound();
         
         return Ok(apiResponse);
     }

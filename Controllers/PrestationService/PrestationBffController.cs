@@ -15,12 +15,14 @@ public class PrestationController : Controller
         _httpClient = httpClient;
     }
 
-    [HttpGet("transmissible")]
-    public async Task<ActionResult<ApiResponse>> GetPrestationsTransmissibles()
+    [HttpGet]
+    public async Task<ActionResult<ApiResponse>> GetPrestations()
     {
-        ApiResponse? apiResponse = await _httpClient.GetFromJsonAsync<ApiResponse>(_prestationUrlService + "/transmissible");
-        if (apiResponse == null) return NotFound();
-
+        ApiResponse? apiResponse = await _httpClient.GetFromJsonAsync<ApiResponse>(_prestationUrlService);
+        if (apiResponse?.IsSuccess == false || apiResponse == null)
+        {
+            return BadRequest("Une erreur s'est produite lors de la récupération des données : Prestations");
+        }
         return Ok(apiResponse);
     }
 }

@@ -20,8 +20,11 @@ public class DepartementBffController : Controller
     public async Task<ActionResult> GetDepartement(int position, int pageSize)
     {
         ApiResponse? apiResponse = await _httpClient.GetFromJsonAsync<ApiResponse>(_departementServiceUrl+$"?position={position}&pageSize={pageSize}");
+        if(apiResponse?.IsSuccess == false || apiResponse == null)
+        {
+            return BadRequest("Une erreur s'est produite lors de la récupération des données : Departements");
+        }
         apiResponse.HandleResponse<List<DepartementDto>>();
-        if (apiResponse == null) return NotFound();
         
         return Ok(apiResponse);
     }
@@ -31,8 +34,11 @@ public class DepartementBffController : Controller
     {
         string requestUri = $"{_departementServiceUrl}/{id}";
         ApiResponse? apiResponse = await _httpClient.GetFromJsonAsync<ApiResponse>(requestUri);
+        if (apiResponse?.IsSuccess == false || apiResponse == null)
+        {
+            return BadRequest("Une erreur s'est produite lors de la récupération de donnée : Departement");
+        }
         apiResponse.HandleResponse<DepartementDto>();
-        if (apiResponse == null) return NotFound();
         
         return Ok(apiResponse);
     }
@@ -82,8 +88,11 @@ public class DepartementBffController : Controller
     public async Task<ActionResult<ApiResponse>> GetAllDepartements()
     {
         ApiResponse? apiResponse = await _httpClient.GetFromJsonAsync<ApiResponse>(_departementServiceUrl+"/all");
+        if (apiResponse == null)
+        {
+            return BadRequest("Une erreur s'est produite lors de la récupération de donnée : Departement");
+        } 
         apiResponse.HandleResponse<List<DepartementDto>>();
-        if (apiResponse == null) return NotFound();
         
         return Ok(apiResponse);
     }

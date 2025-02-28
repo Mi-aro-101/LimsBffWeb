@@ -7,17 +7,17 @@ public class ClientDto
     [JsonPropertyName("idClient")]
     public int IdClient { get; set; }
     [JsonPropertyName("nom")]
-    public string Nom { get; set; }
+    public required string Nom { get; set; }
     [JsonPropertyName("adresse")]
-    public string Adresse { get; set; }
+    public required string Adresse { get; set; }
     [JsonPropertyName("cin")]
     public string? Cin { get; set; }
     [JsonPropertyName("passeport")]
     public string? Passeport { get; set; }
     [JsonPropertyName("contact")]
-    public string Contact { get; set; }
+    public required string Contact { get; set; }
     [JsonPropertyName("email")]
-    public string Email { get; set; }
+    public string? Email { get; set; }
     [JsonPropertyName("fax")]
     public string? Fax { get; set; }
     [JsonPropertyName("isInterne")]

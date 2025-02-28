@@ -23,6 +23,10 @@ public class DetailsRecettePrevisionnelleController : Controller
         var response = await _httpClient.PostAsJsonAsync(_detailsRecettePrevisionnelleServiceUrl, detailsRecettePrevisionnelle);
         using var responseStream = await response.Content.ReadAsStreamAsync();
         ApiResponse? apiResponse = await JsonSerializer.DeserializeAsync<ApiResponse>(responseStream);
+        if(apiResponse?.IsSuccess == false)
+        {
+            return BadRequest("Une erreur s'est produite lors de la création du details de la recette prévisionnelle");
+        }
         if (apiResponse?.Data != null)
         {
             apiResponse.HandleResponse<DetailsRecettePrevisionnelleDto>();
