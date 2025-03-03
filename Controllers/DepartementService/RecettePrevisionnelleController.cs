@@ -18,14 +18,14 @@ public class RecettePrevisionnelle : Controller
     }
 
     [HttpPost]
-    public async Task<ActionResult> CreateRecettePrevisionnelle(RecettePrevisionnelleDto recettePrevisionnelle)
+    public async Task<ActionResult> CreateRecettePrevisionnelle(RecettePrevisionnelleDepartement recettePrevisionnelle)
     {
         var response = await _httpClient.PostAsJsonAsync(_recettePrevisionnelleServiceUrl, recettePrevisionnelle);
         using var responseStream = await response.Content.ReadAsStreamAsync();
         ApiResponse? apiResponse = await JsonSerializer.DeserializeAsync<ApiResponse>(responseStream);
         if(apiResponse?.IsSuccess == false)
         {
-            return BadRequest("Une erreur s'est produite lors de la création de la recette prévisionnelle");
+            return BadRequest(apiResponse.Message);
         }
         else if (apiResponse?.Data != null)
         {
