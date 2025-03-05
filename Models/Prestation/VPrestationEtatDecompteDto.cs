@@ -11,9 +11,13 @@ public class VPrestationEtatDecompteDto
     [JsonPropertyName("reference")]
     public required string Reference { get; set; }
     [JsonPropertyName("montant")]
-    public required double Montant { get; set; }
+    public required decimal Montant { get; set; }
     [JsonPropertyName("remise")]
     public required double Remise { get; set; }
     [JsonPropertyName("montantTotal")]
-    public required double MontantTotal { get; set; }
+    public required decimal MontantTotal { get; set; }
+    [JsonPropertyName("idEtatPrestation")]
+    public int IdEtatPrestation { get; set; }
+    [JsonPropertyName("designationEtat")]
+    public required string DesignationEtat { get; set; }
 }
