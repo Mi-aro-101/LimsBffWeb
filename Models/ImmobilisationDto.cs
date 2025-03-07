@@ -17,5 +17,5 @@ public class ImmobilisationDto
     public int IdMarque { get; set; }
 
     [JsonPropertyName("marque")]
-    public required MarqueDto Marque { get; set; } // Correspond à la structure de ton API
+    public  MarqueDto? Marque { get; set; } // Correspond à la structure de ton API
 }

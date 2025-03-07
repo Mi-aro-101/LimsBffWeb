@@ -12,7 +12,8 @@ builder.Services.AddCors(options =>
     options.AddPolicy(name: "Authorized",
                       policy  =>
                       {
-                          policy.WithOrigins("http://0.0.0.0:5204")
+                          //policy.WithOrigins("http://0.0.0.0:5204")
+                          policy.AllowAnyOrigin()
                           .AllowAnyMethod()
                         //   Just for this time but we need it after The token thing and Auth
                           .AllowAnyHeader();
