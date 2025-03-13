@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Text.Json.Serialization;
 
 namespace LimsBffWeb.Models;
@@ -14,4 +15,6 @@ public class EchantillonDto
     public DateOnly? DatePrelevement { get; set; }
     [JsonPropertyName("idTypeEchantillon")]
     public int IdTypeEchantillon { get; set; }
+    [JsonPropertyName("typeTravaux")]
+    public required ICollection<TravauxDto> TypeTravaux { get; set; } = new List<TravauxDto>();
 }
