@@ -1,3 +1,6 @@
+using System.Text.Json;
+using System.Threading.Tasks;
+using LimsBffWeb.Models;
 using LimsUtils.Api;
 using Microsoft.AspNetCore.Mvc;
 
@@ -15,13 +18,26 @@ public class PrestationController : Controller
         _httpClient = httpClient;
     }
 
+    [HttpPost]
+    public ActionResult<ApiResponse> CreatePrestation(CreatePrestationDto prestationDto)
+    {
+        var response =  _httpClient.PostAsJsonAsync(_prestationUrlService, prestationDto).GetAwaiter().GetResult();
+        using var responseStream = response.Content.ReadAsStreamAsync().GetAwaiter().GetResult();
+        ApiResponse? apiResponse = JsonSerializer.DeserializeAsync<ApiResponse>(responseStream).GetAwaiter().GetResult();
+        if (apiResponse?.IsSuccess == false || apiResponse == null)
+        {
+            return BadRequest(apiResponse);
+        }
+        return Ok(apiResponse);
+    }
+
     [HttpGet]
     public async Task<ActionResult<ApiResponse>> GetPrestations()
     {
         ApiResponse? apiResponse = await _httpClient.GetFromJsonAsync<ApiResponse>(_prestationUrlService);
         if (apiResponse?.IsSuccess == false || apiResponse == null)
         {
-            return BadRequest("Une erreur s'est produite lors de la récupération des données : Prestations");
+            return BadRequest(apiResponse);
         }
         return Ok(apiResponse);
     }
@@ -33,7 +49,7 @@ public class PrestationController : Controller
         ApiResponse? apiResponse = await _httpClient.GetFromJsonAsync<ApiResponse>(requestUri);
         if (apiResponse?.IsSuccess == false || apiResponse == null)
         {
-            return BadRequest("Une erreur s'est produite lors de la récupération de donnée : Prestation");
+            return BadRequest(apiResponse);
         }
         return Ok(apiResponse);
     }
@@ -53,4 +69,6 @@ public class PrestationController : Controller
 
         return File(stream, contentType, fileName);
     }
+
+    
 }

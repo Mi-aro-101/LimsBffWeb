@@ -1,6 +1,6 @@
 using System.Text.Json.Serialization;
 
-namespace LimsBffWeb.Dto;
+namespace LimsBffWeb.Models;
 
 public class EchantillonDto
 {

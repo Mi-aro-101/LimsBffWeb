@@ -1,0 +1,121 @@
+﻿using Microsoft.AspNetCore.Mvc;
+using LimsBffWeb.Models;          // Crée un DTO MarqueDto adapté si nécessaire
+using System.Text.Json;
+using LimsUtils.Api;
+using System.Net.Http.Json;
+using System.Net;
+//Test bff
+namespace LimsBffWeb.Controllers
+{
+    [ApiController]
+    [Route("api/marque")]
+    public class MarquesBffController : ControllerBase
+    {
+        private readonly HttpClient _httpClient;
+        // URL de ton API LimsImmobilisationService pour les marques
+        private readonly string _marqueServiceUrl = "http://localhost:5066/api/marques";
+
+        public MarquesBffController(HttpClient httpClient)
+        {
+            _httpClient = httpClient;
+        }
+
+        // Récupérer le total des marques
+        [HttpGet("total")]
+        public async Task<ActionResult<ApiResponse>> GetTotalMarques()
+        {
+            var apiResponse = await _httpClient.GetFromJsonAsync<ApiResponse>(_marqueServiceUrl + "/total");
+            if (apiResponse == null)
+                return NotFound();
+            return Ok(apiResponse);
+        }
+
+        // Récupérer les marques avec pagination
+        [HttpGet]
+        public async Task<ActionResult<ApiResponse>> GetMarques(int position = 1, int pageSize = 10)
+        {
+            string requestUri = $"{_marqueServiceUrl}?position={position}&pageSize={pageSize}";
+            var apiResponse = await _httpClient.GetFromJsonAsync<ApiResponse>(requestUri);
+            if (apiResponse == null)
+                return NotFound();
+            return Ok(apiResponse);
+        }
+
+        // Récupérer une marque par son ID
+        //[HttpGet("{id}")]
+        //public async Task<ActionResult<ApiResponse>> GetMarque(int id)
+        //{
+        //    string requestUri = $"{_marqueServiceUrl}/{id}";
+        //    var apiResponse = await _httpClient.GetFromJsonAsync<ApiResponse>(requestUri);
+        //    if (apiResponse == null)
+        //        return NotFound();
+        //    return Ok(apiResponse);
+        //}
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult> GetMarque(int id)
+        {
+            string requestUri = $"{_marqueServiceUrl}/{id}";
+            var response = await _httpClient.GetAsync(requestUri);
+
+            if (response.StatusCode == HttpStatusCode.NotFound)
+            {
+                return NotFound("Marque non trouvée");
+            }
+            else if (!response.IsSuccessStatusCode)
+            {
+                // Gérer d'autres codes d'erreur si nécessaire
+                return StatusCode((int)response.StatusCode, "Erreur lors de la récupération de la marque");
+            }
+
+            var apiResponse = await response.Content.ReadFromJsonAsync<ApiResponse>();
+            return Ok(apiResponse);
+        }
+
+
+        // Créer une marque
+        [HttpPost]
+        public async Task<ActionResult<ApiResponse>> CreateMarque(MarqueDto marqueDto)
+        {
+            var response = await _httpClient.PostAsJsonAsync(_marqueServiceUrl, marqueDto);
+            using var responseStream = await response.Content.ReadAsStreamAsync();
+            var apiResponse = await JsonSerializer.DeserializeAsync<ApiResponse>(responseStream);
+            if (apiResponse?.Data != null)
+                return Created("", apiResponse);
+            else
+                return BadRequest("Erreur lors de la création de la marque.");
+        }
+
+        // Mettre à jour une marque
+        [HttpPut("{id}")]
+        public async Task<ActionResult<ApiResponse>> UpdateMarque(int id, MarqueDto marqueDto)
+        {
+            string requestUri = $"{_marqueServiceUrl}/{id}";
+            var response = await _httpClient.PutAsJsonAsync(requestUri, marqueDto);
+            using var responseStream = await response.Content.ReadAsStreamAsync();
+            var apiResponse = await JsonSerializer.DeserializeAsync<ApiResponse>(responseStream);
+            if (apiResponse?.Data != null)
+                return Ok(apiResponse);
+            else
+                return BadRequest("Erreur lors de la mise à jour.");
+        }
+
+        // Supprimer une marque
+        [HttpDelete("{id}")]
+        public async Task<ActionResult<ApiResponse>> DeleteMarque(int id)
+        {
+            var response = await _httpClient.DeleteAsync($"{_marqueServiceUrl}/{id}");
+            if (response.IsSuccessStatusCode)
+                return Ok(new ApiResponse
+                {
+                    Data = null,
+                    ViewBag = null,
+                    IsSuccess = true,
+                    Message = "Marque supprimée avec succès.",
+                    StatusCode = 200
+                });
+            else
+                return BadRequest("Erreur lors de la suppression.");
+        }
+    }
+}
