@@ -53,4 +53,22 @@ public class PrestationController : Controller
         }
         return Ok(apiResponse);
     }
+
+    [HttpPost("etat/decompte/{id}")]
+    public async Task<ActionResult<ApiResponse>> EtatDeDecompteToPdf(int id)
+    {
+        string fullUrl = _prestationUrlService+$"/etat/decompte/{id}";
+        var response = await _httpClient.PostAsJsonAsync(fullUrl, id);
+
+        if (!response.IsSuccessStatusCode)
+            return StatusCode((int)response.StatusCode, "Error generating PDF");
+
+        var stream = await response.Content.ReadAsStreamAsync();
+        var contentType = response.Content.Headers.ContentType?.ToString() ?? "application/pdf";
+        var fileName = response.Content.Headers.ContentDisposition?.FileName ?? $"EtatDeDecompte_{id}.pdf";
+
+        return File(stream, contentType, fileName);
+    }
+
+    
 }

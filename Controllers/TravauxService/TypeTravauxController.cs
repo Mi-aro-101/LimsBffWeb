@@ -100,4 +100,15 @@ public class TypeTravauxBffController : Controller
         }
         return Ok(apiResponse);
     }
+
+    [HttpGet("all")]
+    public async Task<ActionResult<ApiResponse>> GetTotalTypeTravaux()
+    {
+        ApiResponse? apiResponse = await _httpClient.GetFromJsonAsync<ApiResponse>(_typetravauxServiceUrl+"/all");
+        if (apiResponse?.IsSuccess == false || apiResponse == null) return NotFound();
+        
+        return Ok(apiResponse);
+    }
+
+    
 }
