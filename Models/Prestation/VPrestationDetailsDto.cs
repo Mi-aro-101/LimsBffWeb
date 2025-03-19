@@ -19,4 +19,6 @@ public class VPrestationDetailsDto
     public required string Designation { get; set; }
     [JsonPropertyName("tarif")]
     public required decimal Tarif { get; set; }
+    [JsonPropertyName("idEchantillon")]
+    public int IdEchantillon { get; set; }
 }
