@@ -30,4 +30,13 @@ public class EchantillonBffController : Controller
 
         return File(stream, contentType, fileName);
     }
+
+    [HttpGet("{reference}")]
+    public async Task<ActionResult<ApiResponse>> GetEchantillonByReference(string reference)
+    {
+        string requestUri = $"{_clientServiceUrl}/{reference}";
+        ApiResponse? apiResponse = await _httpClient.GetFromJsonAsync<ApiResponse>(requestUri);
+
+        return Ok(apiResponse);
+    }
 }
