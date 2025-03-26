@@ -33,15 +33,6 @@ namespace LimsBffWeb.Controllers
             else return BadRequest("Ohatran'ny nisy olana tao a");
         }
 
-        /*[HttpGet]
-        public async Task<ActionResult> GetNoteDebit(int position, int pageSize)
-        {
-            ApiResponse? apiResponse = await _httpClient.GetFromJsonAsync<ApiResponse>(_demandeNoteDebitURL+$"?position={position}&pageSize={pageSize}");
-            apiResponse.HandleResponse<List<DemandeDto>>();
-            if( apiResponse == null ) return NotFound();
-            return Ok(apiResponse);
-        }*/
-
         [HttpGet("Demande_A_Faire")]
         public async Task<ActionResult> GetNoteDebit()
         {

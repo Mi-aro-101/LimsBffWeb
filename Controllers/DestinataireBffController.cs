@@ -7,27 +7,27 @@ using System.Text.Json;
 namespace LimsBffWeb.Controllers
 {
     [ApiController]
-    [Route("api/contrat")]
-    public class ContratBffController : ControllerBase
+    [Route("api/destinataire")]
+    public class DestinataireBffController : ControllerBase
     {
         private readonly HttpClient _httpClient;
-        private readonly string _contratURL = "http://localhost:5290/api/contrat";
+        private readonly string _destinataireURL = "http://localhost:5290/api/destinataire";
 
-        public ContratBffController(HttpClient httpClient)
+        public DestinataireBffController(HttpClient httpClient)
         {
             _httpClient = httpClient;
         }
 
         [HttpPost("ajout")]
-        public async Task<ActionResult> AddContrat(ContratDto contrat)
+        public async Task<ActionResult> AddDestinataire(DestinataireDto contrat)
         {
-            var response = await _httpClient.PostAsJsonAsync($"{_contratURL}/new", contrat);
+            var response = await _httpClient.PostAsJsonAsync($"{_destinataireURL}/new", contrat);
             using var responseStream = await response.Content.ReadAsStreamAsync();
             ApiResponse? apiResponse = await JsonSerializer.DeserializeAsync<ApiResponse>(responseStream);
             if (apiResponse?.Data != null)
             {
-                apiResponse.HandleResponse<ContratDto>();
-                ContratDto departement = (ContratDto)apiResponse.Data;
+                apiResponse.HandleResponse<DestinataireDto>();
+                DestinataireDto departement = (DestinataireDto)apiResponse.Data;
                 return Ok(apiResponse);
             }
             else return BadRequest("Ohatran'ny nisy olana tao a");
@@ -36,26 +36,26 @@ namespace LimsBffWeb.Controllers
         [HttpGet]
         public async Task<ActionResult> GetAllContrat(int position, int pagesize)
         {
-            ApiResponse? apiResponse = await _httpClient.GetFromJsonAsync<ApiResponse>(_contratURL + "?position=" + position + "&pageSize=" + pagesize);
-            apiResponse.HandleResponse<List<ContratDto>>();
+            ApiResponse? apiResponse = await _httpClient.GetFromJsonAsync<ApiResponse>(_destinataireURL + "?position=" + position + "&pageSize=" + pagesize);
+            apiResponse.HandleResponse<List<DestinataireDto>>();
             if (apiResponse == null) return NotFound();
             return Ok(apiResponse);
         }
 
-        [HttpGet("{id_partenaire}")]
-        public async Task<ActionResult> GetContratModifier(int id_partenaire)
+        [HttpGet("{id_destinataire}")]
+        public async Task<ActionResult> GetDestinataireModification(int id_destinataire)
         {
-            ApiResponse? apiResponse = await _httpClient.GetFromJsonAsync<ApiResponse>($"{_contratURL}/{id_partenaire}");
-            apiResponse.HandleResponse<ContratDto>();
+            ApiResponse? apiResponse = await _httpClient.GetFromJsonAsync<ApiResponse>($"{_destinataireURL}/{id_destinataire}");
+            apiResponse.HandleResponse<DestinataireDto>();
             if (apiResponse == null) return NotFound();
             return Ok(apiResponse);
         }
 
-        [HttpPut("{id_partenaire}/{id_contrat}")]
-        public async Task<ActionResult> ContratModifier(int id_partenaire, int id_contrat, [FromBody] ContratDto contrat)
+        [HttpPut("{Id_destinataire}")]
+        public async Task<ActionResult> ModificationDestinataire(int Id_destinataire, [FromBody] DestinataireDto destinataire)
         {
-            string requestUri = $"{_contratURL}/{id_partenaire}/{id_contrat}";
-            var response = await _httpClient.PutAsJsonAsync(requestUri, contrat);
+            string requestUri = $"{_destinataireURL}/{Id_destinataire}";
+            var response = await _httpClient.PutAsJsonAsync(requestUri, destinataire);
             using var responseStream = await response.Content.ReadAsStreamAsync();
             ApiResponse? apiResponse = await JsonSerializer.DeserializeAsync<ApiResponse>(responseStream);
             if (apiResponse?.IsSuccess == false || apiResponse == null)

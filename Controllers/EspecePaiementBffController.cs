@@ -22,13 +22,6 @@ namespace LimsBffWeb.Controllers
         public async Task<ActionResult> GetEspecePaiement(int id_etat_decompte)
         {
             string request = $"{_especeURL}/{id_etat_decompte}";
-
-            /*var response = await _httpClient.GetFromJsonAsync<object>(request); // Remplacez 'object' par le bon type si vous le connaissez
-
-            Console.WriteLine(System.Text.Json.JsonSerializer.Serialize(response, new System.Text.Json.JsonSerializerOptions { WriteIndented = true }));
-            var responseString = await _httpClient.GetStringAsync(request);
-            Console.WriteLine(responseString); // Affiche la réponse brute pour analyse*/
-
             ApiResponse? apiresponse = await _httpClient.GetFromJsonAsync<ApiResponse>(request);
             apiresponse.HandleResponse<List<PaiementDto>>();
             if (apiresponse == null) return NotFound();

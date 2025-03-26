@@ -3,12 +3,20 @@
   "WorkspaceRootPath": "C:\\Users\\AndyMickael\\Desktop\\OMNIS\\tests\\LimsBffWeb\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{354ACC0F-6B84-4AF6-AE37-1F42D7DBDDF0}|LimsBffWeb.csproj|c:\\users\\andymickael\\desktop\\omnis\\tests\\limsbffweb\\controllers\\contratbffcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{354ACC0F-6B84-4AF6-AE37-1F42D7DBDDF0}|LimsBffWeb.csproj|solutionrelative:controllers\\contratbffcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{354ACC0F-6B84-4AF6-AE37-1F42D7DBDDF0}|LimsBffWeb.csproj|c:\\users\\andymickael\\desktop\\omnis\\tests\\limsbffweb\\models\\recudto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{354ACC0F-6B84-4AF6-AE37-1F42D7DBDDF0}|LimsBffWeb.csproj|solutionrelative:models\\recudto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{354ACC0F-6B84-4AF6-AE37-1F42D7DBDDF0}|LimsBffWeb.csproj|c:\\users\\andymickael\\desktop\\omnis\\tests\\limsbffweb\\models\\contratdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{354ACC0F-6B84-4AF6-AE37-1F42D7DBDDF0}|LimsBffWeb.csproj|solutionrelative:models\\contratdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{354ACC0F-6B84-4AF6-AE37-1F42D7DBDDF0}|LimsBffWeb.csproj|c:\\users\\andymickael\\desktop\\omnis\\tests\\limsbffweb\\controllers\\etatjournalierbffcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{354ACC0F-6B84-4AF6-AE37-1F42D7DBDDF0}|LimsBffWeb.csproj|solutionrelative:controllers\\etatjournalierbffcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{354ACC0F-6B84-4AF6-AE37-1F42D7DBDDF0}|LimsBffWeb.csproj|c:\\users\\andymickael\\desktop\\omnis\\tests\\limsbffweb\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{354ACC0F-6B84-4AF6-AE37-1F42D7DBDDF0}|LimsBffWeb.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{354ACC0F-6B84-4AF6-AE37-1F42D7DBDDF0}|LimsBffWeb.csproj|c:\\users\\andymickael\\desktop\\omnis\\tests\\limsbffweb\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{354ACC0F-6B84-4AF6-AE37-1F42D7DBDDF0}|LimsBffWeb.csproj|solutionrelative:properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     }
   ],
   "DocumentGroupContainers": [
@@ -18,7 +26,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Bookmark",
@@ -30,28 +38,52 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "ContratDto.cs",
-              "DocumentMoniker": "C:\\Users\\AndyMickael\\Desktop\\OMNIS\\tests\\LimsBffWeb\\Models\\ContratDto.cs",
-              "RelativeDocumentMoniker": "Models\\ContratDto.cs",
-              "ToolTip": "C:\\Users\\AndyMickael\\Desktop\\OMNIS\\tests\\LimsBffWeb\\Models\\ContratDto.cs",
-              "RelativeToolTip": "Models\\ContratDto.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAiAAAAAAAAAA==",
+              "DocumentIndex": 0,
+              "Title": "RecuDto.cs",
+              "DocumentMoniker": "C:\\Users\\AndyMickael\\Desktop\\OMNIS\\tests\\LimsBffWeb\\Models\\RecuDto.cs",
+              "RelativeDocumentMoniker": "Models\\RecuDto.cs",
+              "ToolTip": "C:\\Users\\AndyMickael\\Desktop\\OMNIS\\tests\\LimsBffWeb\\Models\\RecuDto.cs",
+              "RelativeToolTip": "Models\\RecuDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABQAAAArAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-25T11:24:24.748Z"
+              "WhenOpened": "2025-03-13T05:56:12.43Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "ContratBffController.cs",
-              "DocumentMoniker": "C:\\Users\\AndyMickael\\Desktop\\OMNIS\\tests\\LimsBffWeb\\Controllers\\ContratBffController.cs",
-              "RelativeDocumentMoniker": "Controllers\\ContratBffController.cs",
-              "ToolTip": "C:\\Users\\AndyMickael\\Desktop\\OMNIS\\tests\\LimsBffWeb\\Controllers\\ContratBffController.cs",
-              "RelativeToolTip": "Controllers\\ContratBffController.cs",
-              "ViewState": "AgIAAAkAAAAAAAAAAAAAABUAAABGAAAAAAAAAA==",
+              "DocumentIndex": 1,
+              "Title": "EtatJournalierBffController.cs",
+              "DocumentMoniker": "C:\\Users\\AndyMickael\\Desktop\\OMNIS\\tests\\LimsBffWeb\\Controllers\\EtatJournalierBffController.cs",
+              "RelativeDocumentMoniker": "Controllers\\EtatJournalierBffController.cs",
+              "ToolTip": "C:\\Users\\AndyMickael\\Desktop\\OMNIS\\tests\\LimsBffWeb\\Controllers\\EtatJournalierBffController.cs",
+              "RelativeToolTip": "Controllers\\EtatJournalierBffController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAABcAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-25T11:23:27.529Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-03-11T11:01:46.966Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "launchSettings.json",
+              "DocumentMoniker": "C:\\Users\\AndyMickael\\Desktop\\OMNIS\\tests\\LimsBffWeb\\Properties\\launchSettings.json",
+              "RelativeDocumentMoniker": "Properties\\launchSettings.json",
+              "ToolTip": "C:\\Users\\AndyMickael\\Desktop\\OMNIS\\tests\\LimsBffWeb\\Properties\\launchSettings.json",
+              "RelativeToolTip": "Properties\\launchSettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABgAAAAbAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-03-10T12:18:43.311Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\AndyMickael\\Desktop\\OMNIS\\tests\\LimsBffWeb\\Program.cs",
+              "RelativeDocumentMoniker": "Program.cs",
+              "ToolTip": "C:\\Users\\AndyMickael\\Desktop\\OMNIS\\tests\\LimsBffWeb\\Program.cs",
+              "RelativeToolTip": "Program.cs",
+              "ViewState": "AgIAAB4AAAAAAAAAAAAAAD4AAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-10T12:18:01.201Z"
             }
           ]
         }
