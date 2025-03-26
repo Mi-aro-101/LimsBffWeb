@@ -11,10 +11,14 @@ namespace LimsBffWeb.Models
         //reception mobile 
         [JsonPropertyName("referenceMobile")]
         public int referenceMobile { get; set; }
+        [JsonPropertyName("operateurmobile")]
+        public int operateurmobile { get; set; }
 
         //reception virement
         [JsonPropertyName("referenceOV")]
         public string? referenceOV { get; set; }
+        [JsonPropertyName("banque")]
+        public string? banque { get; set; }
 
         //attribut commun
         [JsonPropertyName("referenceEtatDecompte")]

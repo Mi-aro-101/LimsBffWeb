@@ -31,12 +31,7 @@ namespace LimsBffWeb.Controllers
         public async Task<ActionResult> AddPaiementParMobile(PaiementDto paiement)
         {
             var response = await _httpClient.PostAsJsonAsync(_mobileURL, paiement);
-            using var responseStream = await response.Content.ReadAsStreamAsync();
-            Console.WriteLine(await response.Content.ReadAsStringAsync());
-            //Console.WriteLine(JsonSerializer.Serialize(paiement));
-            string jsonString = await response.Content.ReadAsStringAsync();
-            Console.WriteLine("JSON reçu : " + jsonString);
-
+            using var responseStream = await response.Content.ReadAsStreamAsync();           
             ApiResponse? apiResponse = await JsonSerializer.DeserializeAsync<ApiResponse>(responseStream);
             if (apiResponse?.Data != null)
             {

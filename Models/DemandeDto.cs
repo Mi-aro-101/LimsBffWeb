@@ -4,28 +4,7 @@ using System.Text.Json.Serialization;
 namespace LimsBffWeb.Models
 {
     public class DemandeDto
-    {
-        /*[JsonPropertyName("clients")]
-        public string clients { get; set; } = string.Empty;
-        [JsonPropertyName("email")]
-        public string email { get; set; } = string.Empty;
-        [JsonPropertyName("adresse")]
-        public string adresse { get; set; } = string.Empty;
-        [JsonPropertyName("contact")]
-        public string contact { get; set; } = string.Empty;
-        [JsonPropertyName("identite")]
-        public string identite { get; set; } = string.Empty;
-        [JsonPropertyName("etatDecompte")]
-        public string etatDecompte { get; set; } = string.Empty;
-        [JsonPropertyName("datePaiement")]
-        public string datePaiement { get; set; } = string.Empty;
-        [JsonPropertyName("idEtatDecompte")]
-        public int idEtatDecompte { get; set; }
-        [JsonPropertyName("montant")]
-        public double montant { get; set; }
-        [JsonPropertyName("nombreEchantillon")]
-        public int nombreEchantillon { get; set; }*/
-
+    {        
         // Attributs de `DemandeDto`
         [JsonPropertyName("clients")]
         public string? clients { get; set; }
