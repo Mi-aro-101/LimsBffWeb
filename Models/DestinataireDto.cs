@@ -7,7 +7,7 @@ namespace LimsBffWeb.Models
         [JsonPropertyName("idDestinataire")]
         public int idDestinataire { get; set; }
 
-        [JsonPropertyName("destignation")]
-        public string? destignation { get; set; }
+        [JsonPropertyName("designation")]
+        public string? designation { get; set; }
     }
 }
