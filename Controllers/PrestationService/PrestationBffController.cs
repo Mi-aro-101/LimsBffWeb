@@ -24,21 +24,15 @@ public class PrestationController : Controller
         var response =  _httpClient.PostAsJsonAsync(_prestationUrlService, prestationDto).GetAwaiter().GetResult();
         using var responseStream = response.Content.ReadAsStreamAsync().GetAwaiter().GetResult();
         ApiResponse? apiResponse = JsonSerializer.DeserializeAsync<ApiResponse>(responseStream).GetAwaiter().GetResult();
-        if (apiResponse?.IsSuccess == false || apiResponse == null)
-        {
-            return BadRequest(apiResponse);
-        }
         return Ok(apiResponse);
     }
 
-    [HttpGet]
-    public async Task<ActionResult<ApiResponse>> GetPrestations()
+    [HttpPost("tri")]
+    public async Task<ActionResult<ApiResponse>> GetPrestations(SortPrestationDto sorter)
     {
-        ApiResponse? apiResponse = await _httpClient.GetFromJsonAsync<ApiResponse>(_prestationUrlService);
-        if (apiResponse?.IsSuccess == false || apiResponse == null)
-        {
-            return BadRequest(apiResponse);
-        }
+        var response =  _httpClient.PostAsJsonAsync(_prestationUrlService+"/tri", sorter).GetAwaiter().GetResult();
+        using var responseStream = response.Content.ReadAsStreamAsync().GetAwaiter().GetResult();
+        ApiResponse? apiResponse = await JsonSerializer.DeserializeAsync<ApiResponse>(responseStream);
         return Ok(apiResponse);
     }
 
@@ -47,10 +41,6 @@ public class PrestationController : Controller
     {
         string requestUri = $"{_prestationUrlService}/{id}";
         ApiResponse? apiResponse = await _httpClient.GetFromJsonAsync<ApiResponse>(requestUri);
-        if (apiResponse?.IsSuccess == false || apiResponse == null)
-        {
-            return BadRequest(apiResponse);
-        }
         return Ok(apiResponse);
     }
 
