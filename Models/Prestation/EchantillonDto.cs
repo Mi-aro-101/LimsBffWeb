@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Text.Json.Serialization;
 
 namespace LimsBffWeb.Models;
@@ -17,6 +16,9 @@ public class EchantillonDto
     public int IdTypeEchantillon { get; set; }
     [JsonPropertyName("typeTravaux")]
     public ICollection<TravauxDto> TypeTravaux { get; set; } = new List<TravauxDto>();
+
+    [JsonPropertyName("typeEchantillon")]
+    public TypeEchantillonDto? TypeEchantillon { get; set; }
 
     // For details
     [JsonPropertyName("detailsEchantillons")]
