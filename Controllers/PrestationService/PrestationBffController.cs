@@ -28,10 +28,10 @@ public class PrestationController : Controller
     }
 
     [HttpPost("tri")]
-    public async Task<ActionResult<ApiResponse>> GetPrestations(SortPrestationDto sorter)
+    public async Task<ActionResult<ApiResponse>> GetPrestations(SortPrestationDto? sorter = null)
     {
         var response =  _httpClient.PostAsJsonAsync(_prestationUrlService+"/tri", sorter).GetAwaiter().GetResult();
-        using var responseStream = response.Content.ReadAsStreamAsync().GetAwaiter().GetResult();
+        using var responseStream = await response.Content.ReadAsStreamAsync();
         ApiResponse? apiResponse = await JsonSerializer.DeserializeAsync<ApiResponse>(responseStream);
         return Ok(apiResponse);
     }
