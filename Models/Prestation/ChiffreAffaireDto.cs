@@ -2,6 +2,8 @@ using System.Text.Json.Serialization;
 
 namespace LimsBffWeb.Models;
 
+// Modification 1, 2, 3
+
 public class ChiffreAffaireDto
 {
     [JsonPropertyName("annee")]

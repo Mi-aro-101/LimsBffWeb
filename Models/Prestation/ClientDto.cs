@@ -2,6 +2,8 @@ using System.Text.Json.Serialization;
 
 namespace LimsBffWeb.Models;
 
+// Modification 3, 4
+
 public class ClientDto
 {
     [JsonPropertyName("idClient")]
