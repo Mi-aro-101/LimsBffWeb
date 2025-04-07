@@ -7,13 +7,13 @@ namespace LimsBffWeb.Controllers;
 
 [ApiController]
 [Route("/api/chiffre/affaire")]
-public class ChiffreAffaireController : Controller
+public class ChiffreAffaireBffController : Controller
 {
     private readonly string _chiffreAffaireUrl = "http://localhost:5013/api/chiffre/affaire";
 
     private readonly HttpClient _httpClient;
 
-    public ChiffreAffaireController(HttpClient httpClient)
+    public ChiffreAffaireBffController(HttpClient httpClient)
     {
         _httpClient = httpClient;
     }
@@ -32,6 +32,16 @@ public class ChiffreAffaireController : Controller
     public async Task<ActionResult<ApiResponse>> GetAnnuelChiffreAffaire([FromBody] ChiffreAffaireDto? chiffreAffaire)
     {
         string requestUri = _chiffreAffaireUrl + "/annuel";
+        var response = await _httpClient.PostAsJsonAsync(requestUri, chiffreAffaire);
+        using var responseStream = await response.Content.ReadAsStreamAsync();
+        ApiResponse? apiResponse = await JsonSerializer.DeserializeAsync<ApiResponse>(responseStream);
+        return Ok(apiResponse);
+    }
+
+    [HttpPost("journalier")]
+    public async Task<ActionResult<ApiResponse>> GetAnnuelChiffreJournalier([FromBody] ChiffreAffaireDto? chiffreAffaire)
+    {
+        string requestUri = _chiffreAffaireUrl + "/journalier";
         var response = await _httpClient.PostAsJsonAsync(requestUri, chiffreAffaire);
         using var responseStream = await response.Content.ReadAsStreamAsync();
         ApiResponse? apiResponse = await JsonSerializer.DeserializeAsync<ApiResponse>(responseStream);
