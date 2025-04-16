@@ -7,9 +7,9 @@ namespace LimsBffWeb.Models;
 public class ChiffreAffaireDto
 {
     [JsonPropertyName("annee")]
-    public int? Annee { get; set;}
+    public int? Annee { get; set;} = DateTime.Now.Year;
     [JsonPropertyName("mois")]
-    public int? Mois { get; set;}
+    public int? Mois { get; set;} = DateTime.Now.Month;
     [JsonPropertyName("jour")]
     public int? Jour { get; set; }
     [JsonPropertyName("montant")]

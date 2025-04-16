@@ -77,4 +77,24 @@ public class ChiffreAffaireBffController : Controller
         ApiResponse? apiResponse = await JsonSerializer.DeserializeAsync<ApiResponse>(responseStream);
         return Ok(apiResponse);
     }
+
+    [HttpPost("client/annuel")]
+    public async Task<ActionResult<ApiResponse>> GetChiffreAffaireInterneExterneAnnuel([FromBody] ChiffreAffaireInterneExterneDto? chiffreAffaire)
+    {
+        string requestUri = _chiffreAffaireUrl + "/client/annuel";
+        var response = await _httpClient.PostAsJsonAsync(requestUri, chiffreAffaire);
+        using var responseStream = await response.Content.ReadAsStreamAsync();
+        ApiResponse? apiResponse = await JsonSerializer.DeserializeAsync<ApiResponse>(responseStream);
+        return Ok(apiResponse);
+    }
+
+    [HttpPost("client/mensuel")]
+    public async Task<ActionResult<ApiResponse>> GetChiffreAffaireInterneExterneMensuel([FromBody] ChiffreAffaireInterneExterneDto? chiffreAffaire)
+    {
+        string requestUri = _chiffreAffaireUrl + "/client/mensuel";
+        var response = await _httpClient.PostAsJsonAsync(requestUri, chiffreAffaire);
+        using var responseStream = await response.Content.ReadAsStreamAsync();
+        ApiResponse? apiResponse = await JsonSerializer.DeserializeAsync<ApiResponse>(responseStream);
+        return Ok(apiResponse);
+    }
 }
