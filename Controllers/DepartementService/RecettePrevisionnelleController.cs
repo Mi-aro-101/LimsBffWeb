@@ -25,7 +25,7 @@ public class RecettePrevisionnelle : Controller
         ApiResponse? apiResponse = await JsonSerializer.DeserializeAsync<ApiResponse>(responseStream);
         if(apiResponse?.IsSuccess == false)
         {
-            return BadRequest(apiResponse.Message);
+            return Ok(apiResponse);
         }
         else if (apiResponse?.Data != null)
         {
@@ -43,9 +43,23 @@ public class RecettePrevisionnelle : Controller
         ApiResponse? apiResponse = await _httpClient.GetFromJsonAsync<ApiResponse>(requestUri);
         if (apiResponse?.IsSuccess == false || apiResponse == null)
         {
-            return BadRequest("Une erreur s'est produite lors de la récupération des données : Recettes previsionnelles");
+            return Ok(apiResponse);
         }
         apiResponse.HandleResponse<RecettePrevisionnelleDto>();
+        
+        return Ok(apiResponse);
+    }
+
+    [HttpGet("comparaison/prevision/realite/{annee}")]
+    public async Task<ActionResult> GetPrevisionRecette(int annee)
+    {
+        string requestUri = $"{_recettePrevisionnelleServiceUrl}/comparaison/prevision/realite/{annee}";
+        ApiResponse? apiResponse = await _httpClient.GetFromJsonAsync<ApiResponse>(requestUri);
+        if (apiResponse?.IsSuccess == false || apiResponse == null)
+        {
+            return Ok(apiResponse);
+        }
+        apiResponse.HandleResponse<VComparaisonRecetteDto>();
         
         return Ok(apiResponse);
     }
