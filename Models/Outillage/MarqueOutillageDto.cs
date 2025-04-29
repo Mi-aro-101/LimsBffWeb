@@ -8,6 +8,6 @@ namespace LimsBffWeb.Models.Outillage
         public int IdMarque { get; set; }
 
         [JsonPropertyName("designation")]
-        public required string Designation { get; set; }
+        public string? Designation { get; set; }
     }
 }
