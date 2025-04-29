@@ -1,4 +1,5 @@
 ﻿using System.Text.Json.Serialization;
+using LimsBffWeb.Models.Immobilisation;
 
 namespace LimsBffWeb.Models.Outillage
 {
