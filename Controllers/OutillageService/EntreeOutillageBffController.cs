@@ -3,7 +3,7 @@ using LimsUtils.Api;
 using System.Net;
 using System.Net.Http.Json;
 using System.Text.Json;
-using LimsBffWeb.Models.Outillage; // Namespace supposé pour les DTOs du BFF
+using LimsBffWeb.Models.Outillage;
 
 namespace LimsBffWeb.Controllers.OutillageService
 {
@@ -19,7 +19,6 @@ namespace LimsBffWeb.Controllers.OutillageService
             _httpClient = httpClient;
         }
 
-        // GET api/entree-outillages/total
         [HttpGet("total")]
         public async Task<ActionResult<ApiResponse>> GetTotalEntreeOutillages()
         {
@@ -30,7 +29,6 @@ namespace LimsBffWeb.Controllers.OutillageService
             return Ok(apiResponse);
         }
 
-        // GET api/entree-outillages?position=1&pageSize=5
         [HttpGet]
         public async Task<ActionResult<ApiResponse>> GetEntreeOutillages(int position = 1, int pageSize = 5)
         {
@@ -47,7 +45,6 @@ namespace LimsBffWeb.Controllers.OutillageService
             return Ok(apiResponse);
         }
 
-        // GET api/entree-outillages/{id}
         [HttpGet("{id}")]
         public async Task<ActionResult<ApiResponse>> GetEntreeOutillage(int id)
         {
@@ -62,7 +59,6 @@ namespace LimsBffWeb.Controllers.OutillageService
             return Ok(apiResponse);
         }
 
-        // POST api/entree-outillages
         [HttpPost]
         public async Task<ActionResult<ApiResponse>> CreateEntreeOutillage([FromBody] EntreeOutillageDto entreeOutillageDto)
         {
@@ -73,6 +69,22 @@ namespace LimsBffWeb.Controllers.OutillageService
                 return Ok(apiResponse);
             else
                 return BadRequest("Une erreur est survenue lors de la création de l'entrée outillage.");
+        }
+
+        [HttpGet("depenses/mois/{annee}")]
+        public async Task<ActionResult<ApiResponse>> GetDepensesParMois(int annee)
+        {
+            string requestUrl = $"{_entreeOutillageServiceUrl}/depenses/mois/{annee}";
+            var response = await _httpClient.GetAsync(requestUrl);
+            if (response.IsSuccessStatusCode)
+            {
+                var apiResponse = await response.Content.ReadFromJsonAsync<ApiResponse>();
+                return Ok(apiResponse);
+            }
+            else
+            {
+                return StatusCode((int)response.StatusCode, "Erreur lors de la récupération des dépenses.");
+            }
         }
     }
 }

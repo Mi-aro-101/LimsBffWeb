@@ -3,6 +3,8 @@ using LimsUtils.Api;
 using System.Net;
 using System.Text.Json;
 using LimsBffWeb.Models.ReactifService;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace LimsBffWeb.Controllers.ReactifService
 {
@@ -11,14 +13,13 @@ namespace LimsBffWeb.Controllers.ReactifService
     public class EntreeReactifBffController : ControllerBase
     {
         private readonly HttpClient _httpClient;
-        private readonly string _entreeReactifServiceUrl = " http://localhost:5073/api/entree-reactifs"; // Remplacez par l'URL de votre API
+        private readonly string _entreeReactifServiceUrl = "http://localhost:5073/api/entree-reactifs";
 
         public EntreeReactifBffController(HttpClient httpClient)
         {
             _httpClient = httpClient;
         }
 
-        // GET api/entree-reactifs/total
         [HttpGet("total")]
         public async Task<ActionResult<ApiResponse>> GetTotalEntreeReactifs()
         {
@@ -29,7 +30,6 @@ namespace LimsBffWeb.Controllers.ReactifService
             return Ok(apiResponse);
         }
 
-        // GET api/entree-reactifs?position=1&pageSize=5
         [HttpGet]
         public async Task<ActionResult<ApiResponse>> GetEntreeReactifs(int position = 1, int pageSize = 5)
         {
@@ -46,7 +46,6 @@ namespace LimsBffWeb.Controllers.ReactifService
             return Ok(apiResponse);
         }
 
-        // GET api/entree-reactifs/{id}
         [HttpGet("{id}")]
         public async Task<ActionResult<ApiResponse>> GetEntreeReactif(int id)
         {
@@ -61,7 +60,6 @@ namespace LimsBffWeb.Controllers.ReactifService
             return Ok(apiResponse);
         }
 
-        // POST api/entree-reactifs
         [HttpPost]
         public async Task<ActionResult<ApiResponse>> CreateEntreeReactif([FromBody] EntreeReactifDto entreeReactifDto)
         {
@@ -74,7 +72,6 @@ namespace LimsBffWeb.Controllers.ReactifService
                 return BadRequest("Une erreur est survenue lors de la création de l'entrée réactif.");
         }
 
-        // PUT api/entree-reactifs/{id}
         [HttpPut("{id}")]
         public async Task<ActionResult<ApiResponse>> UpdateEntreeReactif(int id, [FromBody] EntreeReactifDto entreeReactifDto)
         {
@@ -88,7 +85,6 @@ namespace LimsBffWeb.Controllers.ReactifService
                 return BadRequest("Une erreur est survenue lors de la mise à jour de l'entrée réactif.");
         }
 
-        // DELETE api/entree-reactifs/{id}
         [HttpDelete("{id}")]
         public async Task<ActionResult<ApiResponse>> DeleteEntreeReactif(int id)
         {
@@ -108,6 +104,22 @@ namespace LimsBffWeb.Controllers.ReactifService
             else
             {
                 return BadRequest("Une erreur est survenue lors de la suppression de l'entrée réactif.");
+            }
+        }
+
+        [HttpGet("depenses/mois/{annee}")]
+        public async Task<ActionResult<ApiResponse>> GetDepensesParMois(int annee)
+        {
+            string requestUrl = $"{_entreeReactifServiceUrl}/depenses/mois/{annee}";
+            var response = await _httpClient.GetAsync(requestUrl);
+            if (response.IsSuccessStatusCode)
+            {
+                var apiResponse = await response.Content.ReadFromJsonAsync<ApiResponse>();
+                return Ok(apiResponse);
+            }
+            else
+            {
+                return StatusCode((int)response.StatusCode, "Erreur lors de la récupération des dépenses.");
             }
         }
     }
