@@ -19,7 +19,6 @@ namespace LimsBffWeb.Controllers.ImmobilisationService
             _httpClient = httpClient;
         }
 
-        // GET api/entree-immobilisations/total
         [HttpGet("total")]
         public async Task<ActionResult<ApiResponse>> GetTotalEntreeImmobilisations()
         {
@@ -30,7 +29,6 @@ namespace LimsBffWeb.Controllers.ImmobilisationService
             return Ok(apiResponse);
         }
 
-        // GET api/entree-immobilisations?position=1&pageSize=5
         [HttpGet]
         public async Task<ActionResult<ApiResponse>> GetEntreeImmobilisations(int position = 1, int pageSize = 5)
         {
@@ -47,7 +45,6 @@ namespace LimsBffWeb.Controllers.ImmobilisationService
             return Ok(apiResponse);
         }
 
-        // GET api/entree-immobilisations/{id}
         [HttpGet("{id}")]
         public async Task<ActionResult<ApiResponse>> GetEntreeImmobilisation(int id)
         {
@@ -62,7 +59,6 @@ namespace LimsBffWeb.Controllers.ImmobilisationService
             return Ok(apiResponse);
         }
 
-        // POST api/entree-immobilisations
         [HttpPost]
         public async Task<ActionResult<ApiResponse>> CreateEntreeImmobilisation([FromBody] EntreeImmobilisationDto entreeImmobilisationDto)
         {
@@ -75,7 +71,6 @@ namespace LimsBffWeb.Controllers.ImmobilisationService
                 return BadRequest("Une erreur est survenue lors de la création de l'entrée immobilisation.");
         }
 
-        // GET api/entree-immobilisations/non-immatriculees
         [HttpGet("non-immatriculees")]
         public async Task<ActionResult<ApiResponse>> GetEntreeImmobilisationsNonImmatriculees()
         {
@@ -85,6 +80,22 @@ namespace LimsBffWeb.Controllers.ImmobilisationService
                 return NotFound();
 
             return Ok(apiResponse);
+        }
+
+        [HttpGet("depenses/mois/{annee}")]
+        public async Task<ActionResult<ApiResponse>> GetDepensesParMois(int annee)
+        {
+            string requestUrl = $"{_entreeImmobilisationServiceUrl}/depenses/mois/{annee}";
+            var response = await _httpClient.GetAsync(requestUrl);
+            if (response.IsSuccessStatusCode)
+            {
+                var apiResponse = await response.Content.ReadFromJsonAsync<ApiResponse>();
+                return Ok(apiResponse);
+            }
+            else
+            {
+                return StatusCode((int)response.StatusCode, "Erreur lors de la récupération des dépenses.");
+            }
         }
     }
 }
