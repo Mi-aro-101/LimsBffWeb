@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 using System.Text.Json;
 using LimsBffWeb.Models;
 using LimsUtils.Api;
@@ -28,7 +29,6 @@ public class AuthBffController : Controller
         ApiResponse? apiResponse = await JsonSerializer.DeserializeAsync<ApiResponse>(responseStream);
         if (apiResponse?.Data != null && apiResponse?.IsSuccess == true)
         {
-            apiResponse.HandleResponse<String>();
             return Ok(apiResponse);
         }
 
@@ -44,11 +44,53 @@ public class AuthBffController : Controller
         ApiResponse? apiResponse = await JsonSerializer.DeserializeAsync<ApiResponse>(responseStream);
         if (apiResponse?.IsSuccess == true)
         {
-            apiResponse.HandleResponse<String>();
+            // apiResponse.HandleResponse<String>();
             return Ok(apiResponse);
         }
 
         return Unauthorized(new { Message = "Invalid register credentials." });
+    }
+
+    [Authorize(Policy = "AdminPolicy")]
+    [HttpGet("admin-data")]
+    public IActionResult GetAdminData()
+    {
+        return Ok(new ApiResponse
+            {
+                Data = null,
+                ViewBag = null,
+                IsSuccess = true,
+                Message = "Admin only",
+                StatusCode = 200
+            });
+    }
+
+    [Authorize(Policy = "TesteurPolicy")]
+    [HttpGet("testeur-data")]
+    public IActionResult GetTesteurData()
+    {
+       return Ok(new ApiResponse
+            {
+                Data = null,
+                ViewBag = null,
+                IsSuccess = true,
+                Message = "Testeur only",
+                StatusCode = 200
+            });
+    }
+
+    [Authorize(Policy = "AdminOrTesteurPolicy")]
+    [HttpGet("admin-testeur")]
+    public IActionResult GetAdminOrManagerData()
+    {
+       return Ok(new ApiResponse
+            {
+                Data = null,
+                ViewBag = null,
+                IsSuccess = true,
+                Message = "Testeur and Admin",
+                StatusCode = 200
+            });
     }
 
 }
