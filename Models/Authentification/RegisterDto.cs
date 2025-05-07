@@ -10,5 +10,8 @@ public class RegisterDto {
     public required string Password { get; set; }
 
     [JsonPropertyName("roles")]
-    public required List<string> Roles { get; set; } // Optional: Only if assigning roles during registration
+    public required List<int> Roles { get; set; } // Optional: Only if assigning roles during registration
+
+    [JsonPropertyName("idDepartement")]
+    public required int IdDepartement { get; set; }
 }
