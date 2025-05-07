@@ -37,8 +37,8 @@ namespace LimsBffWeb.Controllers
         public async Task<ActionResult> GetAllContrat(int position, int pagesize)
         {
             ApiResponse? apiResponse = await _httpClient.GetFromJsonAsync<ApiResponse>(_destinataireURL + "?position=" + position + "&pageSize=" + pagesize);
-            apiResponse.HandleResponse<List<DestinataireDto>>();
             if (apiResponse == null) return NotFound();
+            apiResponse.HandleResponse<List<DestinataireDto>>();
             return Ok(apiResponse);
         }
 
@@ -46,8 +46,8 @@ namespace LimsBffWeb.Controllers
         public async Task<ActionResult> GetDestinataireModification(int id_destinataire)
         {
             ApiResponse? apiResponse = await _httpClient.GetFromJsonAsync<ApiResponse>($"{_destinataireURL}/{id_destinataire}");
-            apiResponse.HandleResponse<DestinataireDto>();
             if (apiResponse == null) return NotFound();
+            apiResponse.HandleResponse<DestinataireDto>();
             return Ok(apiResponse);
         }
 

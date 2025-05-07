@@ -22,8 +22,8 @@ namespace LimsBffWeb.Controllers
         public async Task<ActionResult> GetReceptionVirementPaiement()
         {
             ApiResponse? apiresponse = await _httpClient.GetFromJsonAsync<ApiResponse>(_virementURL);
-            apiresponse.HandleResponse<RecuDto>();
             if (apiresponse == null) return NotFound();
+            apiresponse.HandleResponse<DashboardPaiementDto>();
             return Ok(apiresponse);
         }
 
@@ -40,6 +40,15 @@ namespace LimsBffWeb.Controllers
                 return Ok(apiResponse);
             }
             else return BadRequest("Ohatran'ny nisy olana tao a");
+        }
+
+         [HttpGet("Confirmer/{id_etat_decompte}")]
+        public async Task<ActionResult> GetReceptionVirementPaiementAConfirmer(int id_etat_decompte)
+        {
+            ApiResponse? apiresponse = await _httpClient.GetFromJsonAsync<ApiResponse>($"{_virementURL}/AConfirmer/{id_etat_decompte}");
+            if (apiresponse == null) return NotFound();
+            apiresponse.HandleResponse<RecuDto>();
+            return Ok(apiresponse);
         }
     }
 }

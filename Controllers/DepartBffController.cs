@@ -21,12 +21,12 @@ namespace LimsBffWeb.Controllers
             _httpClient = httpClient;
         }
 
-        [HttpGet("demandeDepart")]   
+        [HttpGet("ListeDepart")]   
         public async Task<IActionResult> GetDeparts()
         {
-            ApiResponse? apiResponse = await _httpClient.GetFromJsonAsync<ApiResponse>(_departURL + "/listeDemande");
-            apiResponse.HandleResponse<List<DepartDto>>();
+            ApiResponse? apiResponse = await _httpClient.GetFromJsonAsync<ApiResponse>(_departURL + "/listeDepart");
             if (apiResponse == null) return NotFound();
+            apiResponse.HandleResponse<List<DepartDto>>();
             return Ok(apiResponse);
         }
 

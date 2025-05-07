@@ -30,8 +30,8 @@ namespace LimsBffWeb.Controllers
             ApiResponse? apiResponse = await JsonSerializer.DeserializeAsync<ApiResponse>(responseStream);
             if (apiResponse?.Data != null)
             {
-                apiResponse.HandleResponse<DepartementDto>();
-                DepartementDto departement = (DepartementDto)apiResponse.Data;
+                apiResponse.HandleResponse<SemaineDto>();
+                SemaineDto departement = (SemaineDto)apiResponse.Data;
                 return Ok(apiResponse);
             }
             else return BadRequest("Ohatran'ny nisy olana tao a");
@@ -41,10 +41,9 @@ namespace LimsBffWeb.Controllers
         public async Task<ActionResult> GetALLweek()
         {
             string requestUri = $"{_versementURL}/semaine";
-            Console.WriteLine($"l'url1:{requestUri}");
             ApiResponse? apiresponse = await _httpClient.GetFromJsonAsync<ApiResponse>(requestUri);
-            apiresponse.HandleResponse<List<SemaineDto>>();
             if (apiresponse == null) return NotFound();
+            apiresponse.HandleResponse<List<SemaineDto>>();
             return Ok(apiresponse);
         }
 
@@ -52,10 +51,9 @@ namespace LimsBffWeb.Controllers
         public async Task<ActionResult> GetAllVersement()
         {
             string requestUri = $"{_versementURL}/transferer";
-             Console.WriteLine($"l'url2:{requestUri}");
             ApiResponse? apiresponse = await _httpClient.GetFromJsonAsync<ApiResponse>(requestUri);
-            apiresponse.HandleResponse<List<VersementHebdomadaireDto>>();
             if (apiresponse == null) return NotFound();
+            apiresponse.HandleResponse<List<VersementHebdomadaireDto>>();
             return Ok(apiresponse);
         }
     }

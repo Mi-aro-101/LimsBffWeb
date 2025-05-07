@@ -22,8 +22,8 @@ namespace LimsBffWeb.Controllers
         {
             string requestUri = $"{_encaissementURL}";
             ApiResponse? apiresponse = await _httpClient.GetFromJsonAsync<ApiResponse>(requestUri);
-            apiresponse.HandleResponse<List<EncaissementJournalierDto>>();
             if (apiresponse == null) return NotFound();
+            apiresponse.HandleResponse<List<EncaissementJournalierDto>>();
             return Ok(apiresponse);
         }
     }

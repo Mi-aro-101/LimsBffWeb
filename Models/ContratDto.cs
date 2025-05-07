@@ -4,7 +4,7 @@ namespace LimsBffWeb.Models
 {
     public class ContratDto
     {
-        //attribut partenaire
+        /*//attribut partenaire
         [JsonPropertyName("nomEntreprise")]
         public string nomEntreprise { get; set; } = string.Empty;
         [JsonPropertyName("etat")]
@@ -20,6 +20,6 @@ namespace LimsBffWeb.Models
 
         //attribut commun
         [JsonPropertyName("idPartenaire")]
-        public int idPartenaire { get; set; }
+        public int idPartenaire { get; set; }*/
     }
 }
