@@ -10,7 +10,7 @@ namespace LimsBffWeb.Controllers
     [Route("api/contrat")]
     public class ContratBffController : ControllerBase
     {
-        private readonly HttpClient _httpClient;
+        /*private readonly HttpClient _httpClient;
         private readonly string _contratURL = "http://localhost:5290/api/contrat";
 
         public ContratBffController(HttpClient httpClient)
@@ -37,8 +37,8 @@ namespace LimsBffWeb.Controllers
         public async Task<ActionResult> GetAllContrat(int position, int pagesize)
         {
             ApiResponse? apiResponse = await _httpClient.GetFromJsonAsync<ApiResponse>(_contratURL + "?position=" + position + "&pageSize=" + pagesize);
-            apiResponse.HandleResponse<List<ContratDto>>();
             if (apiResponse == null) return NotFound();
+            apiResponse.HandleResponse<List<ContratDto>>();
             return Ok(apiResponse);
         }
 
@@ -67,6 +67,6 @@ namespace LimsBffWeb.Controllers
                 return Ok(apiResponse);
             }
             else return BadRequest("Ohatran'ny nisy olana tao a");
-        }
+        }*/
     }
 }

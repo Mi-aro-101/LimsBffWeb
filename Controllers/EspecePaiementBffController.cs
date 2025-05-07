@@ -23,8 +23,8 @@ namespace LimsBffWeb.Controllers
         {
             string request = $"{_especeURL}/{id_etat_decompte}";
             ApiResponse? apiresponse = await _httpClient.GetFromJsonAsync<ApiResponse>(request);
-            apiresponse.HandleResponse<List<PaiementDto>>();
             if (apiresponse == null) return NotFound();
+            apiresponse.HandleResponse<List<PaiementDto>>();
             return Ok(apiresponse);
         }
 

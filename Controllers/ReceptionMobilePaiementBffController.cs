@@ -22,8 +22,8 @@ namespace LimsBffWeb.Controllers
         public async Task<ActionResult> GetReceptionMobilePaiement()
         {
             ApiResponse? apiresponse = await _httpClient.GetFromJsonAsync<ApiResponse>(_mobileURL);
-            apiresponse.HandleResponse<RecuDto>();
             if (apiresponse == null) return NotFound();
+            apiresponse.HandleResponse<DashboardPaiementDto>();
             return Ok(apiresponse);
         }
 
@@ -40,6 +40,15 @@ namespace LimsBffWeb.Controllers
                 return Ok(apiResponse);
             }
             else return BadRequest("Ohatran'ny nisy olana tao a");
+        }
+
+         [HttpGet("Confirmer")]
+        public async Task<ActionResult> GetReceptionMobilePaiementAConfirmer()
+        {
+            ApiResponse? apiresponse = await _httpClient.GetFromJsonAsync<ApiResponse>(_mobileURL+"/AConfirmer");
+            if (apiresponse == null) return NotFound();
+            apiresponse.HandleResponse<RecuDto>();
+            return Ok(apiresponse);
         }
     }
 }

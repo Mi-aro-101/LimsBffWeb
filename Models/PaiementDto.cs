@@ -18,6 +18,8 @@ namespace LimsBffWeb.Models
         public string? contact { get; set; }
         [JsonPropertyName("identite")]
         public string? identite { get; set; }
+        [JsonPropertyName("ref_contrat")]
+        public string? ref_contrat { get; set; }
         [JsonPropertyName("montant")]
         public double montant { get; set; }
         [JsonPropertyName("etatDecompte")]

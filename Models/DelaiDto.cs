@@ -4,6 +4,14 @@ namespace LimsBffWeb.Models
 {
     public class DelaiDto
     {
+	    //attribut client
+        [JsonPropertyName("nomClient")]
+        public string? nomClient { get; set; }
+
+        //attribut prestation
+        [JsonPropertyName("montant")]
+        public double montant { get; set; }
+
         //attribut Etat decompte
         [JsonPropertyName("id_etat_decompte")]
         public int id_etat_decompte { get; set; }
