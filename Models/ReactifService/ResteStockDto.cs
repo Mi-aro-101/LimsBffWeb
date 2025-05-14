@@ -4,7 +4,7 @@ namespace LimsBffWeb.Models;
 
 public class ResteStockDto
 {
-    [JsonPropertyName("result")]
+    [JsonPropertyName("quantite")]
     public double Quantite { get; set; }
     [JsonPropertyName("unite")]
     public string Unite { get; set; } = string.Empty;

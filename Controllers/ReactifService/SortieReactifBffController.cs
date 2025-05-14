@@ -71,10 +71,7 @@ namespace LimsBffWeb.Controllers.ReactifService
             var response = await _httpClient.PostAsJsonAsync(_sortieReactifServiceUrl, sortieReactifDto);
             using var responseStream = await response.Content.ReadAsStreamAsync();
             ApiResponse? apiResponse = await JsonSerializer.DeserializeAsync<ApiResponse>(responseStream);
-            if (apiResponse?.Data != null)
-                return Ok(apiResponse);
-            else
-                return BadRequest("Une erreur est survenue lors de la création de la sortie réactif.");
+            return Ok(apiResponse);
         }
 
         
