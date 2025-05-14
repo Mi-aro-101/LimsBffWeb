@@ -28,7 +28,7 @@ public class EmployeImmobilisationDto
     public required string Adresse { get; set; }
 
     [JsonPropertyName("manager")]
-    public required string Manager { get; set; }
+    public string? Manager { get; set; } = string.Empty;
 
     [JsonPropertyName("statut")]
     public int Statut { get; set; }

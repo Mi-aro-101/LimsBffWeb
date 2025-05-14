@@ -5,6 +5,7 @@ using LimsUtils.Api;
 using System.Net;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
+using LimsBffWeb.Models;
 
 namespace LimsBffWeb.Controllers.ReactifService
 {
@@ -132,6 +133,16 @@ public async Task<ActionResult<ApiResponse>> SearchReactifs([FromQuery] string s
             {
                 return BadRequest("Une erreur est survenue lors de la suppression du reactif.");
             }
+        }
+
+        [HttpPost("reste-stock")]
+        public async Task<ActionResult<ApiResponse>> GetResteStock([FromBody] ResteStockDto resteStockDto)
+        {
+            string requestUri = _reactifServiceUrl + "/reste-stock";
+            var response = await _httpClient.PostAsJsonAsync(requestUri, resteStockDto);
+            using var responseStream = await response.Content.ReadAsStreamAsync();
+            ApiResponse? apiResponse = await JsonSerializer.DeserializeAsync<ApiResponse>(responseStream);
+            return Ok(apiResponse);
         }
     }
 }
