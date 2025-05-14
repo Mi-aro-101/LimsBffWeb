@@ -41,7 +41,7 @@ namespace LimsBffWeb.Controllers.ReactifService
             string requestUrl = $"{_entreeReactifServiceUrl}?position={position}&pageSize={pageSize}";
             ApiResponse? apiResponse = await _httpClient.GetFromJsonAsync<ApiResponse>(requestUrl);
             if (apiResponse == null)
-                return NotFound();
+                return NotFound();  
 
             return Ok(apiResponse);
         }

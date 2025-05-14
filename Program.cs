@@ -5,7 +5,6 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using System.Text.Json.Serialization;
 
-//TODO: Change de branche
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddCors(options =>

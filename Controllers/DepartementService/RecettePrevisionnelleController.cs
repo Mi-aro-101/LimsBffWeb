@@ -59,7 +59,7 @@ public class RecettePrevisionnelle : Controller
         {
             return Ok(apiResponse);
         }
-        apiResponse.HandleResponse<VComparaisonRecetteDto>();
+        apiResponse.HandleResponse<VComparaisonRecetteDto[]>();
         
         return Ok(apiResponse);
     }
