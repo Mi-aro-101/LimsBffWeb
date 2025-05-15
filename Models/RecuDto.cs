@@ -10,7 +10,7 @@ namespace LimsBffWeb.Models
 
         //reception mobile 
         [JsonPropertyName("referenceMobile")]
-        public int referenceMobile { get; set; }
+        public string referenceMobile { get; set; } = string.Empty;
         [JsonPropertyName("operateurmobile")]
         public string? operateurmobile { get; set; }
 

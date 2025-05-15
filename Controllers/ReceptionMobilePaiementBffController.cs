@@ -42,12 +42,21 @@ namespace LimsBffWeb.Controllers
             else return BadRequest("Ohatran'ny nisy olana tao a");
         }
 
-         [HttpGet("Confirmer")]
+        [HttpGet("Confirmer")]
         public async Task<ActionResult> GetReceptionMobilePaiementAConfirmer()
         {
-            ApiResponse? apiresponse = await _httpClient.GetFromJsonAsync<ApiResponse>(_mobileURL+"/AConfirmer");
+            ApiResponse? apiresponse = await _httpClient.GetFromJsonAsync<ApiResponse>(_mobileURL + "/AConfirmer");
             if (apiresponse == null) return NotFound();
             apiresponse.HandleResponse<RecuDto>();
+            return Ok(apiresponse);
+        }
+        
+        [HttpGet("OperateurMobile")]
+        public async Task<ActionResult> GetOperateurMobile()
+        {
+            ApiResponse? apiresponse = await _httpClient.GetFromJsonAsync<ApiResponse>(_mobileURL + "/Operateur");
+            if (apiresponse == null) return NotFound();
+            apiresponse.HandleResponse<DashboardDelaiMobileDto>();
             return Ok(apiresponse);
         }
     }
