@@ -28,6 +28,8 @@ public class TypeTravauxDto
     public int HaveFormule { get; set; }
     [JsonPropertyName("formuleString")]
     public string? FormuleString { get; set; }
+    [JsonPropertyName("formuleBytes")]
+    public byte[]? FormuleBytes { get; set; }
     [JsonPropertyName("idTypeEchantillons")]
     public ICollection<int>? IdEchantillons { get; set; } = new List<int>();
 
