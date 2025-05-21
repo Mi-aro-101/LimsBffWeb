@@ -2,7 +2,7 @@ using System.Text.Json.Serialization;
 
 namespace LimsBffWeb.Models
 {
-    public class DelaiMobileDto
+    public class DetailMobileDto
     {
         [JsonPropertyName("date")]
         public DateTime? Date { get; set; }

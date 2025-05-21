@@ -31,7 +31,7 @@ namespace LimsBffWeb.Models
         [JsonPropertyName("modePaiement")]
         public int ModePaiement { get; set; }
         [JsonPropertyName("etatPaiement")]
-        public int EtatPaiement { get; set; }
+        public bool EtatPaiement { get; set; }
         [JsonPropertyName("nomPayant")]
         public string? nomPayant { get; set; }
         [JsonPropertyName("prenomPayant")]

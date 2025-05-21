@@ -7,6 +7,6 @@ namespace LimsBffWeb.Models
         [JsonPropertyName("semaines")]
         public List<SemaineDto>? Semaines { get; set; }     
         [JsonPropertyName("details")]   
-        public List<DelaiMobileDto>? Details { get; set; }
+        public List<DetailMobileDto>? Details { get; set; }
     }
 }
