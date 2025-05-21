@@ -110,5 +110,13 @@ public class TypeTravauxBffController : Controller
         return Ok(apiResponse);
     }
 
+    [HttpGet("search")]
+    public async Task<ActionResult<ApiResponse>> SearchTypeTravaux(string search)
+    {
+        ApiResponse? apiResponse = await _httpClient.GetFromJsonAsync<ApiResponse>(_typetravauxServiceUrl+$"/search?search={search}");
+        if (apiResponse?.IsSuccess == false || apiResponse == null) return NotFound();
+        apiResponse.HandleResponse<TypeTravauxDto[]>();
+        return Ok(apiResponse);
+    }
     
 }
