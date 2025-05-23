@@ -30,7 +30,7 @@ namespace LimsBffWeb.Models
         public DateTime? datePaiement { get; set; }
 
         [JsonPropertyName("etatPaiement")]
-        public int EtatPaiement { get; set; }
+        public bool EtatPaiement { get; set; }
 
         //attribut delai
         [JsonPropertyName("dateFinDelai")]

@@ -42,7 +42,7 @@ namespace LimsBffWeb.Controllers
             else return BadRequest("Ohatran'ny nisy olana tao a");
         }
 
-         [HttpGet("Confirmer/{id_etat_decompte}")]
+        [HttpGet("Confirmer/{id_etat_decompte}")]
         public async Task<ActionResult> GetReceptionVirementPaiementAConfirmer(int id_etat_decompte)
         {
             ApiResponse? apiresponse = await _httpClient.GetFromJsonAsync<ApiResponse>($"{_virementURL}/AConfirmer/{id_etat_decompte}");
@@ -50,5 +50,6 @@ namespace LimsBffWeb.Controllers
             apiresponse.HandleResponse<RecuDto>();
             return Ok(apiresponse);
         }
+        
     }
 }
