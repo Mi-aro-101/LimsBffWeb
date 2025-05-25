@@ -46,15 +46,15 @@ namespace LimsBffWeb.Controllers.ReactifService
 
         // Endpoint de recherche via le BFF pour les réactifs
         [HttpGet("search")]
-public async Task<ActionResult<ApiResponse>> SearchReactifs([FromQuery] string searchTerm = "")
-{
-    ApiResponse? apiResponse = await _httpClient.GetFromJsonAsync<ApiResponse>(
-        _reactifServiceUrl + $"/search?searchTerm={Uri.EscapeDataString(searchTerm)}");
-    if (apiResponse == null)
-        return NotFound();
+        public async Task<ActionResult<ApiResponse>> SearchReactifs([FromQuery] string searchTerm = "")
+        {
+            ApiResponse? apiResponse = await _httpClient.GetFromJsonAsync<ApiResponse>(
+                _reactifServiceUrl + $"/search?searchTerm={Uri.EscapeDataString(searchTerm)}");
+            if (apiResponse == null)
+                return NotFound();
 
-    return Ok(apiResponse);
-}
+            return Ok(apiResponse);
+        }
 
 
         // Récupère un réactif par son ID
@@ -143,6 +143,14 @@ public async Task<ActionResult<ApiResponse>> SearchReactifs([FromQuery] string s
             using var responseStream = await response.Content.ReadAsStreamAsync();
             ApiResponse? apiResponse = await JsonSerializer.DeserializeAsync<ApiResponse>(responseStream);
             return Ok(apiResponse);
+        }
+
+        [HttpGet("reste-stock-global")]
+        public async Task<ActionResult<ApiResponse>> GetResteStockGlobal(DateTime date)
+        {
+            string requestUri = _reactifServiceUrl + $"/reste-stock-global?date={date}";
+            var response = await _httpClient.GetFromJsonAsync<ApiResponse>(requestUri);
+            return Ok(response);
         }
     }
 }
