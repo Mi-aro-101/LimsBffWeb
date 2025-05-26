@@ -45,16 +45,39 @@ namespace LimsBffWeb.Controllers.ReactifService
 
         // Endpoint de recherche via le BFF pour les réactifs
         [HttpGet("search")]
-public async Task<ActionResult<ApiResponse>> SearchReactifs([FromQuery] string searchTerm = "")
-{
-    ApiResponse? apiResponse = await _httpClient.GetFromJsonAsync<ApiResponse>(
-        _reactifServiceUrl + $"/search?searchTerm={Uri.EscapeDataString(searchTerm)}");
-    if (apiResponse == null)
-        return NotFound();
+        public async Task<ActionResult<ApiResponse>> SearchReactifs([FromQuery] string searchTerm = "")
+        {
+            ApiResponse? apiResponse = await _httpClient.GetFromJsonAsync<ApiResponse>(
+                _reactifServiceUrl + $"/search?searchTerm={Uri.EscapeDataString(searchTerm)}");
+            if (apiResponse == null)
+                return NotFound();
 
-    return Ok(apiResponse);
-}
+            return Ok(apiResponse);
+        }
 
+        // Récupère l'évolution du stock d'un réactif pour une année donnée
+        [HttpGet("{id}/stock-evolution")]
+        public async Task<ActionResult<ApiResponse>> GetStockEvolution(int id, [FromQuery] int year)
+        {
+            ApiResponse? apiResponse = await _httpClient.GetFromJsonAsync<ApiResponse>(
+                _reactifServiceUrl + $"/{id}/stock-evolution?year={year}");
+            if (apiResponse == null)
+                return NotFound();
+
+            return Ok(apiResponse);
+        }
+
+        // Récupère la quantité actuelle d'un réactif
+        [HttpGet("{id}/current-stock")]
+        public async Task<ActionResult<ApiResponse>> GetCurrentStock(int id)
+        {
+            ApiResponse? apiResponse = await _httpClient.GetFromJsonAsync<ApiResponse>(
+                _reactifServiceUrl + $"/{id}/current-stock");
+            if (apiResponse == null)
+                return NotFound();
+
+            return Ok(apiResponse);
+        }
 
         // Récupère un réactif par son ID
         [HttpGet("{id}")]
@@ -69,7 +92,7 @@ public async Task<ActionResult<ApiResponse>> SearchReactifs([FromQuery] string s
             }
             else if (!response.IsSuccessStatusCode)
             {
-                return StatusCode((int)response.StatusCode, "Erreur lors de la récupération du reactif");
+                return StatusCode((int)response.StatusCode, "Erreur lors de la récupération du réactif");
             }
 
             var apiResponse = await response.Content.ReadFromJsonAsync<ApiResponse>();
@@ -89,7 +112,7 @@ public async Task<ActionResult<ApiResponse>> SearchReactifs([FromQuery] string s
             }
             else
             {
-                return BadRequest("Une erreur est survenue lors de la création du reactif.");
+                return BadRequest("Une erreur est survenue lors de la création du réactif.");
             }
         }
 
@@ -107,7 +130,7 @@ public async Task<ActionResult<ApiResponse>> SearchReactifs([FromQuery] string s
             }
             else
             {
-                return BadRequest("Une erreur est survenue lors de la mise à jour du reactif.");
+                return BadRequest("Une erreur est survenue lors de la mise à jour du réactif.");
             }
         }
 
@@ -130,7 +153,7 @@ public async Task<ActionResult<ApiResponse>> SearchReactifs([FromQuery] string s
             }
             else
             {
-                return BadRequest("Une erreur est survenue lors de la suppression du reactif.");
+                return BadRequest("Une erreur est survenue lors de la suppression du réactif.");
             }
         }
     }

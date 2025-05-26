@@ -15,13 +15,7 @@ namespace LimsBffWeb.Models.Immobilisation
 
         [JsonPropertyName("etatInitiale")]
         public string? EtatInitiale { get; set; }
-
-        // [JsonPropertyName("idImmobilisation")]
-        // public int? IdImmobilisation { get; set; }
-
-        // [JsonPropertyName("immobilisation")]
-        // public ImmobilisationDto? Immobilisation { get; set; }
-
+        
         [JsonPropertyName("idEntreeImmobilisation")]
         public int? IdEntreeImmobilisation { get; set; }
 

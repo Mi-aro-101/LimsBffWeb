@@ -71,16 +71,27 @@ namespace LimsBffWeb.Controllers.ImmobilisationService
                 return BadRequest("Une erreur est survenue lors de la création de l'entrée immobilisation.");
         }
 
-        [HttpGet("non-immatriculees")]
-        public async Task<ActionResult<ApiResponse>> GetEntreeImmobilisationsNonImmatriculees()
-        {
-            string requestUrl = $"{_entreeImmobilisationServiceUrl}/non-immatriculees";
-            ApiResponse? apiResponse = await _httpClient.GetFromJsonAsync<ApiResponse>(requestUrl);
-            if (apiResponse == null)
-                return NotFound();
+        // [HttpGet("non-immatriculees")]
+        // public async Task<ActionResult<ApiResponse>> GetEntreeImmobilisationsNonImmatriculees()
+        // {
+        //     string requestUrl = $"{_entreeImmobilisationServiceUrl}/non-immatriculees";
+        //     ApiResponse? apiResponse = await _httpClient.GetFromJsonAsync<ApiResponse>(requestUrl);
+        //     if (apiResponse == null)
+        //         return NotFound();
 
-            return Ok(apiResponse);
-        }
+        //     return Ok(apiResponse);
+        // }
+
+        [HttpGet("avec-reste")]
+public async Task<ActionResult<ApiResponse>> GetEntreeImmobilisationsAvecReste()
+{
+    string requestUrl = $"{_entreeImmobilisationServiceUrl}/avec-reste";
+    ApiResponse? apiResponse = await _httpClient.GetFromJsonAsync<ApiResponse>(requestUrl);
+    if (apiResponse == null)
+        return NotFound();
+
+    return Ok(apiResponse);
+}
 
         [HttpGet("depenses/mois/{annee}")]
         public async Task<ActionResult<ApiResponse>> GetDepensesParMois(int annee)
