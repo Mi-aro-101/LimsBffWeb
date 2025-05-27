@@ -93,6 +93,8 @@ namespace LimsBffWeb.Controllers
         public async Task<ActionResult> AddDelaiPaiementAsync(DelaiDto delai)
         {
             var response = await _httpClient.PostAsJsonAsync(_delaiURL, delai);
+            string responseContent = await response.Content.ReadAsStringAsync();
+            Console.WriteLine(responseContent);
             using var responseStream = await response.Content.ReadAsStreamAsync();
             ApiResponse? apiResponse = await JsonSerializer.DeserializeAsync<ApiResponse>(responseStream);
             if (apiResponse?.Data != null)
