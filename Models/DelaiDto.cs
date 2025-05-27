@@ -32,12 +32,15 @@ namespace LimsBffWeb.Models
         [JsonPropertyName("etatPaiement")]
         public bool EtatPaiement { get; set; }
 
+        [JsonPropertyName("id_modePaiementTable")]
+        public int id_modePaiementTable { get; set; }
+
         //attribut delai
         [JsonPropertyName("dateFinDelai")]
         public DateTime DateFinDelai { get; set; }
 
-        [JsonPropertyName("modePaiement")]
-        public int modePaiement { get; set; }
+        [JsonPropertyName("id_modePaiement")]
+        public int id_modePaiement { get; set; }
 
         // attribut supplementaire
         [JsonPropertyName("nombreEchantillon")]
