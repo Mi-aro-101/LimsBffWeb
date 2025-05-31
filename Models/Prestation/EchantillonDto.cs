@@ -15,7 +15,7 @@ public class EchantillonDto
     [JsonPropertyName("idTypeEchantillon")]
     public int IdTypeEchantillon { get; set; }
     [JsonPropertyName("typeTravaux")]
-    public ICollection<TravauxDto> TypeTravaux { get; set; } = new List<TravauxDto>();
+    public ICollection<TravailDto> TypeTravaux { get; set; } = new List<TravailDto>();
 
     [JsonPropertyName("typeEchantillon")]
     public TypeEchantillonDto? TypeEchantillon { get; set; }

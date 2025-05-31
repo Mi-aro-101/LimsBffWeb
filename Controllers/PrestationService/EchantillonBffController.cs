@@ -1,3 +1,5 @@
+using System.Text.Json;
+using LimsBffWeb.Models;
 using LimsUtils.Api;
 using Microsoft.AspNetCore.Mvc;
 
@@ -15,6 +17,19 @@ public class EchantillonBffController : Controller
         _httpClient = httpClient;
     }
 
+    [HttpPut]
+    public async Task<ActionResult> UpdateTravailAndCheck(int idTravail, int idPrestation)
+    {
+        string fullUrl = _clientServiceUrl + $"?idTravail={idTravail}&idPrestation={idPrestation}";
+        var response = await _httpClient.PutAsync(fullUrl, null);
+        using var responseStream = await response.Content.ReadAsStreamAsync();
+        ApiResponse? apiResponse = await JsonSerializer.DeserializeAsync<ApiResponse>(responseStream);
+        if (apiResponse?.Data != null)
+        {
+            return Ok(apiResponse);
+        }
+        else return BadRequest("Une erreur s'est produite");
+    }
     [HttpPost("qr/{id}")]
     public async Task<ActionResult<ApiResponse>> FicheTravailPdf(int id)
     {
