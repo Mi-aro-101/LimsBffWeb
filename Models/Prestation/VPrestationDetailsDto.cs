@@ -6,6 +6,8 @@ public class VPrestationDetailsDto
 {
     [JsonPropertyName("idTravail")]
     public int IdTravail { get; set; }
+    [JsonPropertyName("travail")]
+    public TravailDto? Travail { get; set;}
     [JsonPropertyName("idPrestation")]
     public int IdPrestation { get; set; }
     public PrestationDto? Prestation { get; set; }
