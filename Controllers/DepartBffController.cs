@@ -42,16 +42,27 @@ namespace LimsBffWeb.Controllers
         [HttpPost("addDepart")]
         public async Task<IActionResult> AddDepart(DepartDto depart)
         {
-            var response = await _httpClient.PostAsJsonAsync($"{_departURL}", depart);
-            using var responseStream = await response.Content.ReadAsStreamAsync();
-            ApiResponse? apiResponse = await JsonSerializer.DeserializeAsync<ApiResponse>(responseStream);
-            if (apiResponse?.Data != null)
+            // Console.WriteLine($"Envoi des données : {JsonSerializer.Serialize(depart)}");
+
+            var response = await _httpClient.PostAsJsonAsync($"{_departURL}/addDepart", depart);
+            
+            // Console.WriteLine($"Status Code: {response.StatusCode}");
+            // Console.WriteLine($"Headers: {JsonSerializer.Serialize(response.Headers)}");
+
+            var responseContent = await response.Content.ReadAsStringAsync();
+            // Console.WriteLine($"Response Content: {responseContent}");
+
+            if (response.IsSuccessStatusCode)
             {
-                apiResponse.HandleResponse<DepartDto>();
-                DepartDto departement = (DepartDto)apiResponse.Data;
-                return Ok(apiResponse);
+                var apiResponse = JsonSerializer.Deserialize<ApiResponse>(responseContent);
+                if (apiResponse?.Data != null)
+                {
+                    apiResponse.HandleResponse<DepartDto>();
+                    DepartDto departement = (DepartDto)apiResponse.Data;
+                    return Ok(apiResponse);
+                }
             }
-            else return BadRequest("Ohatran'ny nisy olana tao a");
+            return BadRequest("Ohatran'ny nisy olana tao a");
         }
     }
 }

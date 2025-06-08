@@ -17,8 +17,8 @@ namespace LimsBffWeb.Models
         //reception virement
         [JsonPropertyName("referenceOV")]
         public string? referenceOV { get; set; }
-        [JsonPropertyName("banque")]
-        public string? banque { get; set; }
+        [JsonPropertyName("id_banque")]
+        public int id_banque { get; set; }
 
         //attribut commun
         [JsonPropertyName("montantApayer")]

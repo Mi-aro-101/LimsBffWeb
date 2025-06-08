@@ -26,6 +26,15 @@ namespace LimsBffWeb.Controllers
             apiresponse.HandleResponse<DashboardPaiementDto>();
             return Ok(apiresponse);
         }
+        
+        [HttpGet("listeBanque")]
+        public async Task<ActionResult> GetListeBanque()
+        {
+            ApiResponse? apiresponse = await _httpClient.GetFromJsonAsync<ApiResponse>($"{_virementURL}/banqueListe");
+            if (apiresponse == null) return NotFound();
+            apiresponse.HandleResponse<BanqueDto>();
+            return Ok(apiresponse);
+        }
 
         [HttpPost]
         public async Task<ActionResult> AddReceptionVirement([FromBody] RecuDto recue)

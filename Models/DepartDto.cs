@@ -12,10 +12,10 @@ namespace LimsBffWeb.Models
         public int idDepart { get; set; }
         
         [JsonPropertyName("reference")]
-        public int? reference { get; set; }
+        public int reference { get; set; }
 
         [JsonPropertyName("objet")]
-        public string? objet { get; set; }
+        public string objet { get; set; } = string.Empty;
 
         [JsonPropertyName("dateDepart")]
         public DateTime? DateDepart { get; set; }
