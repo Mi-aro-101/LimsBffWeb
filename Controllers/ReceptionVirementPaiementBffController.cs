@@ -31,8 +31,8 @@ namespace LimsBffWeb.Controllers
         public async Task<ActionResult> GetListeBanque()
         {
             ApiResponse? apiresponse = await _httpClient.GetFromJsonAsync<ApiResponse>($"{_virementURL}/banqueListe");
+            apiresponse.HandleResponse<List<BanqueDto>>();
             if (apiresponse == null) return NotFound();
-            apiresponse.HandleResponse<BanqueDto>();
             return Ok(apiresponse);
         }
 
