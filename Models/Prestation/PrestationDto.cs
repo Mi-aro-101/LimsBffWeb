@@ -18,6 +18,8 @@ public class PrestationDto
     public EtatPrestationDto? EtatPrestation { get; set; }
     [JsonPropertyName("idClient")]
     public int IdClient { get; set; }
+    [JsonPropertyName("remise")]
+    public double Remise { get; set; }
     [JsonPropertyName("client")]
     public ClientDto? Client { get; set; }
     [JsonPropertyName("statutPaiement")]
