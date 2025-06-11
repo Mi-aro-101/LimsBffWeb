@@ -32,9 +32,24 @@ public class PrestationController : Controller
         else return BadRequest("Une erreur s'est produite lors de la transmission");
     }
 
+    [HttpPut("livraison/{idPrestation}")]
+    public async Task<ActionResult<ApiResponse>> LivraisonPrestation(int idPrestation)
+    {
+        string requestUri = $"{_prestationUrlService}/livraison/{idPrestation}";
+        var response = await _httpClient.PutAsJsonAsync(requestUri, idPrestation);
+        using var responseStream = await response.Content.ReadAsStreamAsync();
+        ApiResponse? apiResponse = await JsonSerializer.DeserializeAsync<ApiResponse>(responseStream);
+        if (apiResponse?.Data != null)
+        {
+            return Ok(apiResponse);
+        }
+        else return BadRequest("Une erreur s'est produite lors de la livraison");
+    }
+
     [HttpPost]
     public ActionResult<ApiResponse> CreatePrestation(CreatePrestationDto prestationDto)
-    {
+    {   
+        Console.WriteLine("kkkk:" + JsonSerializer.Serialize(prestationDto));
         var response =  _httpClient.PostAsJsonAsync(_prestationUrlService, prestationDto).GetAwaiter().GetResult();
         using var responseStream = response.Content.ReadAsStreamAsync().GetAwaiter().GetResult();
         ApiResponse? apiResponse = JsonSerializer.DeserializeAsync<ApiResponse>(responseStream).GetAwaiter().GetResult();
