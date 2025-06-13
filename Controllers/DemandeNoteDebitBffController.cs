@@ -35,10 +35,10 @@ namespace LimsBffWeb.Controllers
                     var pdfBase64List = JsonSerializer.Deserialize<List<string>>(pdfBase64Element.GetRawText());
 
                     // 👇 Ici tu peux afficher ou utiliser les PDF en base64
-                    foreach (var base64 in pdfBase64List)
-                    {
-                        Console.WriteLine("PDF en base64 reçu : " + base64);
-                    }
+                    // foreach (var base64 in pdfBase64List)
+                    // {
+                    //     Console.WriteLine("PDF en base64 reçu : " + base64);
+                    // }
 
                     DemandeDto? demande = JsonSerializer.Deserialize<DemandeDto>(demandeElement.GetRawText());
                     if (demande == null)
