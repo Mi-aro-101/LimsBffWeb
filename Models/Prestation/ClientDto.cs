@@ -26,6 +26,8 @@ public class ClientDto
     public int IsInterne { get; set; }
     [JsonPropertyName("refContrat")]
     public string? RefContrat { get; set; }
-    [JsonPropertyName("nifStat")]
-    public string? NifStat { get; set; }
+    [JsonPropertyName("nif")]
+    public string? Nif { get; set; }
+    [JsonPropertyName("stat")]
+    public string? Stat { get; set; }
 }
