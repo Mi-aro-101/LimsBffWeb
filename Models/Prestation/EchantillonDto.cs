@@ -19,6 +19,10 @@ public class EchantillonDto
 
     [JsonPropertyName("typeEchantillon")]
     public TypeEchantillonDto? TypeEchantillon { get; set; }
+    [JsonPropertyName("idPreleveur")]
+    public int? IdPreleveur { get; set; }
+    [JsonPropertyName("preleveur")]
+    public PreleveurDto? Preleveur { get; set; }
 
     // For details
     [JsonPropertyName("detailsEchantillons")]
