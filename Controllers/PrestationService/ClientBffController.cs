@@ -36,7 +36,7 @@ public class ClientBffController : Controller
         if (apiResponse?.IsSuccess == true)
         {
             apiResponse.HandleResponse<ClientDto>();
-            if(apiResponse.Data == null)
+            if (apiResponse.Data == null)
             {
                 return BadRequest("Une erreur s'est produite");
             }
@@ -72,6 +72,18 @@ public class ClientBffController : Controller
         if (apiResponse?.IsSuccess == false || apiResponse == null)
         {
             return BadRequest($"Une erreur s'est produite lors de la récupération de donnée du Client {id}");
+        }
+        return Ok(apiResponse);
+    }
+
+    [HttpGet("search")]
+    public async Task<ActionResult> SearchClients(string? searchTerm)
+    {
+        string requestUri = $"{_clientServiceUrl}/search?searchTerm={Uri.EscapeDataString(searchTerm ?? string.Empty)}";
+        ApiResponse? apiResponse = await _httpClient.GetFromJsonAsync<ApiResponse>(requestUri);
+        if (apiResponse?.IsSuccess == false || apiResponse == null)
+        {
+            return BadRequest("Une erreur s'est produite lors de la recherche des clients");
         }
         return Ok(apiResponse);
     }
