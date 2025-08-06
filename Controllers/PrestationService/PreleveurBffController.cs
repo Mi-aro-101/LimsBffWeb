@@ -3,12 +3,12 @@ using Microsoft.AspNetCore.Mvc;
 
 [ApiController]
 [Route("/api/preleveur")]
-public class PreleveurBffCController : Controller
+public class PreleveurBffController : Controller
 {
     private readonly string _clientServiceUrl = "http://localhost:5013/api/preleveur";
     private readonly HttpClient _httpClient;
 
-    public PreleveurBffCController(HttpClient httpClient)
+    public PreleveurBffController(HttpClient httpClient)
     {
         _httpClient = httpClient;
     }
