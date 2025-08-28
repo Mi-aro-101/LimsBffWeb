@@ -53,8 +53,8 @@ namespace LimsBffWeb.Controllers
                             Data = listeDelai,
                             ViewBag = new Dictionary<string, object>
                             {
-                                {"id_etat_decompte", apiresponse.ViewBag["id_etat_decompte"] },
-                                {"totalEchantillon", apiresponse.ViewBag["totalEchantillon"] }                                
+                                {"id_etat_decompte", apiresponse.ViewBag?["id_etat_decompte"] ?? 0 },
+                                {"totalEchantillon", apiresponse.ViewBag?["totalEchantillon"] ?? 0 }                                
                             },
                             Message = apiresponse.Message,
                             IsSuccess = true,
@@ -63,7 +63,7 @@ namespace LimsBffWeb.Controllers
 
                         return Ok(reponseAvecViewBag);
                     }
-                    break;
+                    // break;
 
                 case "Client sous contrat":
                     apiresponse.HandleResponse<SousContratDto>();
@@ -111,7 +111,8 @@ namespace LimsBffWeb.Controllers
         {
             var requestUri = $"{_delaiURL}/PaiementDirect/{id_etat_decompte}/{modepaiement}";
 
-            var response = await _httpClient.PutAsJsonAsync<ApiResponse>(requestUri, null); // tu peux aussi utiliser PutAsync si pas besoin d'envoyer de données
+            // var response = await _httpClient.PutAsJsonAsync<ApiResponse>(requestUri, null); // tu peux aussi utiliser PutAsync si pas besoin d'envoyer de données
+            var response = await _httpClient.PutAsync(requestUri, null); // tu peux aussi utiliser PutAsync si pas besoin d'envoyer de données
             if (!response.IsSuccessStatusCode)
                 return BadRequest("Erreur lors de l'appel de l'API externe.");
 
@@ -133,7 +134,8 @@ namespace LimsBffWeb.Controllers
         {
             var requestUri = $"{_delaiURL}/PaiementParChangement/{id_etat_decompte}/{modepaiement}";
 
-            var response = await _httpClient.PutAsJsonAsync<ApiResponse>(requestUri, null); // tu peux aussi utiliser PutAsync si pas besoin d'envoyer de données
+            // var response = await _httpClient.PutAsJsonAsync<ApiResponse>(requestUri, null); // tu peux aussi utiliser PutAsync si pas besoin d'envoyer de données
+            var response = await _httpClient.PutAsync(requestUri, null); // tu peux aussi utiliser PutAsync si pas besoin d'envoyer de données
             if (!response.IsSuccessStatusCode)
                 return BadRequest("Erreur lors de l'appel de l'API externe.");
 

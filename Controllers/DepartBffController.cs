@@ -22,20 +22,32 @@ namespace LimsBffWeb.Controllers
         }
 
         [HttpGet("ListeDepart")]   
-        public async Task<IActionResult> GetDeparts()
+        public async Task<IActionResult> GetDeparts([FromQuery] int? annee = null)
         {
-            ApiResponse? apiResponse = await _httpClient.GetFromJsonAsync<ApiResponse>(_departURL + "/listeDepart");
-            if (apiResponse == null) return NotFound();
-            apiResponse.HandleResponse<List<DepartDto>>();
-            return Ok(apiResponse);
+            try
+            {
+                var url = annee.HasValue 
+                    ? $"{_departURL}/listeDepart?annee={annee.Value}"
+                    : $"{_departURL}/listeDepart";
+                    
+                ApiResponse? apiResponse = await _httpClient.GetFromJsonAsync<ApiResponse>(url);
+                if (apiResponse == null) return NotFound();
+                apiResponse.HandleResponse<List<DepartDto>>();
+                return Ok(apiResponse);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Erreur lors de la récupération des départs: {ex.Message}");
+            }
         }
 
         [HttpGet("destinataireListe")]
         public async Task<IActionResult> GetDestinataire()
         {
             ApiResponse? apiResponse = await _httpClient.GetFromJsonAsync<ApiResponse>(_departURL + "/listeDestinataire");
-            apiResponse.HandleResponse<List<DestinataireDto>>();
             if (apiResponse == null) return NotFound();
+            apiResponse.HandleResponse<List<DestinataireDto>>();
+            // if (apiResponse == null) return NotFound();
             return Ok(apiResponse);
         }
 

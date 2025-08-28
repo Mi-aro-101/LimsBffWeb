@@ -22,8 +22,9 @@ namespace LimsBffWeb.Controllers
         public async Task<ActionResult> GetMobilePaiement(int id_etat_decompte)
         {
             ApiResponse? apiresponse = await _httpClient.GetFromJsonAsync<ApiResponse>($"{_mobileURL}/{id_etat_decompte}");
-            apiresponse.HandleResponse<List<PaiementDto>>();
             if (apiresponse == null) return NotFound();
+            apiresponse.HandleResponse<List<PaiementDto>>();
+            // if (apiresponse == null) return NotFound();
             return Ok(apiresponse);
         }
 
