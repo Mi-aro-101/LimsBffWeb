@@ -1,8 +1,8 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text.Json.Serialization;
 using System.Threading.Tasks;
+using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace LimsBffWeb.Models
 {
@@ -18,6 +18,6 @@ namespace LimsBffWeb.Models
         public DateTime? finSemaine { get; set; }
 
         [JsonPropertyName("responsable")]
-        public string responsable { get; set; } = string.Empty
+        public string responsable { get; set; } = string.Empty;
     }
 }
